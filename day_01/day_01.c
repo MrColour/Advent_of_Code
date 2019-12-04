@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Day_01.c                                           :+:      :+:    :+:   */
+/*   day_01.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 12:08:11 by marvin            #+#    #+#             */
-/*   Updated: 2019/12/02 12:08:11 by marvin           ###   ########.fr       */
+/*   Updated: 2019/12/03 11:50:40 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <fcntl.h>
 #include <string.h>
 #include <stdio.h>
+#include <unistd.h>
 
 #define SIZE 10000
 
@@ -26,18 +27,15 @@ int	main(void)
 	char	test[SIZE + 1];
 	char	*at;
 	int		fuel;
-	int		i;
 	int		result;
 	int		sum;
 
-	fd = open("input.txt", O_RDONLY);
+	fd = open("day_01.txt", O_RDONLY);
 	ret = read(fd, test, SIZE);
 	test[ret] = '\0';
 
-	i = 0;
 	result = 0;
 	at = test;
-	// while (i < 20)
 	while (at - test < ret)
 	{
 		fuel = atoi(at);
@@ -50,9 +48,7 @@ int	main(void)
 			if (sum > 0)
 				result += sum;
 		}
-		printf("FUEL %3i: %d\n", i, fuel);
 		at = strchr(at, '\n') + 1;
-		i++;
 	}
 	printf("RESULT: %d\n", result);
 	return (0);
