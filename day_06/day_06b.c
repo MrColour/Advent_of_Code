@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 16:29:43 by kmira             #+#    #+#             */
-/*   Updated: 2019/12/07 05:03:12 by kmira            ###   ########.fr       */
+/*   Updated: 2019/12/07 05:04:33 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ int		main(void)
 	int	toYOU = 0;
 	int	toSAN = 0;
 
-	toYOU = key_finder(intersection, "YOU") - 2; //YOU to orbit doesn't count, to intersection counts twice
+	toYOU = key_finder(intersection, "YOU") - 2; //YOU to orbit doesn't count, function will then add another 1
 	toSAN = key_finder(intersection, "SAN") - 2;
 
 	printf("YOU: %d SAN: %d\n", toYOU, toSAN);
