@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 16:29:43 by kmira             #+#    #+#             */
-/*   Updated: 2019/12/07 05:04:33 by kmira            ###   ########.fr       */
+/*   Updated: 2019/12/07 05:05:55 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,28 +52,8 @@ void	insert_child(t_trie	**list, t_trie *elem)
 	}
 }
 
-int	traverse_orbits(t_trie *root, int prev_orbit)
-{
-	int result;
-	t_trie *iter;
-
-	result = prev_orbit;
-	iter = root->children;
-	if (iter == NULL)
-		return (prev_orbit);
-	printf("Parent: %s\n", root->key);
-	while (iter)
-	{
-		printf("Child:  %s\n", iter->key);
-		result += traverse_orbits(iter, prev_orbit + 1);
-		iter = iter->next;
-	}
-	return (result);
-}
-
 t_trie	*transfer_orbits(t_trie *root, int *found_YOU, int *found_SAN)
 {
-	// int	result;
 	int	curr_YOU;
 	int	curr_SAN;
 	t_trie *iter;
@@ -84,15 +64,12 @@ t_trie	*transfer_orbits(t_trie *root, int *found_YOU, int *found_SAN)
 	iter = root->children;
 	if (iter == NULL)
 		return (NULL);
-	// printf("Parent: %s\n", root->key);
 	while (iter)
 	{
-		// printf("Child:  %s\n", iter->key);
 		if (strcmp(iter->key, "YOU") == 0)
 			*found_YOU = 1;
 		if (strcmp(iter->key, "SAN") == 0)
 			*found_SAN = 1;
-		// result += traverse_orbits(iter, prev_orbit + 1);
 		result = transfer_orbits(iter, &curr_YOU, &curr_SAN);
 		if (curr_YOU == 1 && curr_SAN == 1) //This returns internally
 		{
