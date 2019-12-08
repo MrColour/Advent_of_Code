@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 13:51:01 by marvin            #+#    #+#             */
-/*   Updated: 2019/12/05 11:04:11 by kmira            ###   ########.fr       */
+/*   Updated: 2019/12/07 06:09:31 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int		get_value(int *memory, int mode, int value)
 
 void	intcode(int	*program)
 {
-	int	val;
 	int	ptr;
 	int	reg[4];
 
@@ -184,5 +183,6 @@ int		main(void)
 	memcpy(attempt, air_cond, sizeof(air_cond));
 	// memcpy(attempt, g_simp, sizeof(g_simp));
 	intcode(attempt);
+	(void)gravity_assit;
 	return (0);
 }
