@@ -6,64 +6,77 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 13:51:01 by marvin            #+#    #+#             */
-/*   Updated: 2019/12/07 16:25:36 by kmira            ###   ########.fr       */
+/*   Updated: 2019/12/09 12:17:37 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "day_07.h"
 
-void	intcode(int	*process, int amp)
+int		g_output[] = {0};
+
+int		g_halts[] = {0, 0, 0, 0, 0};
+int		g_first[] = {0, 0, 0, 0, 0};
+
+int		g_ptr[] = {0, 0, 0, 0, 0};
+
+int		g_phase_setting[] = {
+	5, 5, 5, 5, 5
+};
+
+void	intcode(int	*program, int amp)
 {
-	int	op;
 	int	reg[4];
 
-	op = process[g_ptr[amp]];
+	int	op;
+	op = program[g_ptr[amp]];
 	clear_reg(reg, sizeof(reg) / sizeof(*reg));
-	printf("OP %d at AMP %d\n", op, amp);
 	while (op != 99)
 	{
 		clear_reg(reg, sizeof(reg) / sizeof(*reg));
 		if (op % 10 == 1)
-			operation_01(process, reg, &g_ptr[amp]);
+			operation_01(program, reg, &g_ptr[amp]);
 		else if (op % 10 == 2)
-			operation_02(process, reg, &g_ptr[amp]);
+			operation_02(program, reg, &g_ptr[amp]);
 		else if (op % 10 == 3)
 		{
-			reg[1] = get_value(process, (process[g_ptr[amp]] / 100) % 10, process[g_ptr[amp] + 1]);
+			//Storing into value doesn't make sense. Storing into address does.
+			reg[1] = get_value(program, (program[g_ptr[amp]] / 100) % 10, program[g_ptr[amp] + 1]);
 			if (g_first[amp] == 1)
-				process[process[g_ptr[amp] + 1]] = get_input(READ, amp);
+				program[program[g_ptr[amp] + 1]] = get_input(READ, amp);
 			else
-				process[process[g_ptr[amp] + 1]] = get_input(PHASE, amp);
+				program[program[g_ptr[amp] + 1]] = get_input(PHASE, amp);
 			g_first[amp] = 1;
 			g_ptr[amp] += 2;
 		}
 		else if (op % 10 == 4)
 		{
-			reg[1] = get_value(process, (process[g_ptr[amp]] / 100) % 10, process[g_ptr[amp] + 1]);
-			printf("OUT: %d; error before %d\n", reg[1] , g_ptr[amp]);
+			reg[1] = get_value(program, (program[g_ptr[amp]] / 100) % 10, program[g_ptr[amp] + 1]);
+			g_output[0] = reg[1];
+			printf("OUT: %d; at %d\n", g_output[0], g_ptr[amp]);
 			g_ptr[amp] += 2;
-			// return ;
+			return ;
 		}
 		else if (op % 10 == 5)
-			operation_05(process, reg, &g_ptr[amp]);
+			operation_05(program, reg, &g_ptr[amp]);
 		else if (op % 10 == 6)
-			operation_06(process, reg, &g_ptr[amp]);
+			operation_06(program, reg, &g_ptr[amp]);
 		else if (op % 10 == 7)
-			operation_07(process, reg, &g_ptr[amp]);
+			operation_07(program, reg, &g_ptr[amp]);
 		else if (op % 10 == 8)
-			operation_08(process, reg, &g_ptr[amp]);
+			operation_08(program, reg, &g_ptr[amp]);
 		else
 		{
-			printf("Wrong instruction: OP: %d\n", process[g_ptr[amp]]);
+			printf("Wrong instruction: OP: %d\n", program[g_ptr[amp]]);
 			break ;
 		}
 
-		op = process[g_ptr[amp]];
-		printf("NEW OP %d\n", op);
+		op = program[g_ptr[amp]];
 	}
-	printf("HALT %d\n", amp);
 	if (op == 99)
+	{
+		printf("AMP %d HALTED!\n", amp);
 		g_halts[amp] = 1;
+	}
 }
 
 void	feedback_loop(int *program, int size)
@@ -99,20 +112,142 @@ void	feedback_loop(int *program, int size)
 		printf("AMP E\n");
 		intcode(amp_E, PHASE_E);
 	}
-	printf("OUTPUT: %d\n", g_output[0]);
+}
+
+int	set_stop(void)
+{
+	int i;
+
+	i = 0;
+	while (i < 5)
+	{
+		if (g_phase_setting[i] != 9)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int		is_valid()
+{
+	int i;
+	int	arr[20];
+
+	i = 0;
+	bzero(arr, sizeof(arr));
+	while (i < 5)
+	{
+		if (arr[g_phase_setting[i]] == 1)
+			return (0);
+		arr[g_phase_setting[i]] += 1;
+		i++;
+	}
+	return (1);
+}
+
+void	add_input(void)
+{
+	int	i;
+	int	carry;
+
+	i = 3;
+	carry = 0;
+	g_phase_setting[4] += 1;
+	if (g_phase_setting[4] > 9)
+	{
+		carry = 1;
+		g_phase_setting[4] = 5;
+	}
+	while (i >= 0 && carry == 1)
+	{
+		g_phase_setting[i] = (g_phase_setting[i] + carry);
+		if (g_phase_setting[i] > 9)
+			carry = 1;
+		else
+			carry = 0;
+		g_phase_setting[i] = 5 + (g_phase_setting[i] % 5);
+		i--;
+	}
+}
+
+void	reset(void)
+{
+	int i;
+
+	g_output[0] = 0;
+	i = 0;
+	while (i < 5)
+	{
+		g_halts[i] = 0;
+		i++;
+	}
+	i = 0;
+	while (i < 5)
+	{
+		g_first[i] = 0;
+		i++;
+	}
+	i = 0;
+	while (i < 5)
+	{
+		g_ptr[i] = 0;
+		i++;
+	}
 }
 
 int		main(void)
 {
-	int		test_example[] =
-	{
-		3,26,1001,26,-4,26,3,27,1002,27,2,27,1,27,26,
-		27,4,27,1001,28,-1,28,1005,28,6,99,0,0,5
+	int		Amplifier_Controller_Software[] = {
+		3,8,1001,8,10,8,105,1,0,0,21,46,55,72,85,110,191,272,353,434,99999,3,9,
+		1002,9,5,9,1001,9,2,9,102,3,9,9,101,2,9,9,102,4,9,9,4,9,99,3,9,102,5,
+		9,9,4,9,99,3,9,1002,9,2,9,101,2,9,9,1002,9,2,9,4,9,99,3,9,1002,9,4,9,
+		101,3,9,9,4,9,99,3,9,1002,9,3,9,101,5,9,9,1002,9,3,9,101,3,9,9,1002,9
+		,5,9,4,9,99,3,9,1001,9,2,9,4,9,3,9,101,2,9,9,4,9,3,9,101,2,9,9,4,9,3,
+		9,1001,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,
+		9,3,9,1002,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,1002,9,2,9,4,9,99,3,9,102,
+		2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,1,9,4,9,3,9,1001,9,1,9,4,9,3,9,
+		1002,9,2,9,4,9,3,9,1001,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,101,1,9,9,4,9,
+		3,9,1001,9,1,9,4,9,3,9,101,2,9,9,4,9,99,3,9,1002,9,2,9,4,9,3,9,1001,9,
+		2,9,4,9,3,9,101,2,9,9,4,9,3,9,1001,9,1,9,4,9,3,9,1002,9,2,9,4,9,3,9,1001,
+		9,1,9,4,9,3,9,1001,9,1,9,4,9,3,9,1001,9,2,9,4,9,3,9,1001,9,1,9,4,9,3,9,
+		101,2,9,9,4,9,99,3,9,1001,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,101,2,9,9,4,9,
+		3,9,1001,9,2,9,4,9,3,9,1001,9,2,9,4,9,3,9,1002,9,2,9,4,9,3,9,102,2,9,9,
+		4,9,3,9,1002,9,2,9,4,9,3,9,1002,9,2,9,4,9,3,9,1001,9,1,9,4,9,99,3,9,101,
+		1,9,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,2,9,4,9,3,9,1002,
+		9,2,9,4,9,3,9,1002,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,
+		9,2,9,4,9,3,9,1001,9,2,9,4,9,99
 	};
 
-	// feedback_loop(test_example, sizeof(test_example));
+	int	d;
+	int	max;
+	int stop_cond;
 
-	intcode(test_example, 0);
+	max = 0;
+	stop_cond = 0;
+	while (stop_cond == 0)
+	{
+		add_input();
+		while (is_valid() == 0 && set_stop() == 0)
+			add_input();
+		if (set_stop() == 1)
+			break ;
+		d = 0;
+		while (d < 5)
+		{
+			printf("%d ", g_phase_setting[d]);
+			d++;
+		}
+		feedback_loop(Amplifier_Controller_Software, sizeof(Amplifier_Controller_Software));
 
+		printf(" with: %15d thrust\n", g_output[0]);
+
+		if (max < g_output[0])
+			max = g_output[0];
+		reset();
+		stop_cond = set_stop();
+	}
+
+
+	printf("RESULT: %d\n", max);
 	return (0);
 }

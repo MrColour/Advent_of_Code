@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 15:28:19 by kmira             #+#    #+#             */
-/*   Updated: 2019/12/07 16:04:12 by kmira            ###   ########.fr       */
+/*   Updated: 2019/12/07 17:25:11 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-
-static int		g_output[] = {0};
-
-static int		g_ptr[] = {0, 0, 0, 0, 0};
-
-static int		g_halts[] = {0, 0, 0, 0, 0};
-static int		g_first[] = {0, 0, 0, 0, 0};
-
-static int		g_phase_setting[] = {
-	9, 8, 7, 6, 5
-};
 
 # define PHASE_A 0
 # define PHASE_B 1
@@ -54,5 +43,11 @@ void	operation_08(int *process, int *reg, int *ptr);
 void	clear_reg(int *registers, int size);
 int		get_value(int *memory, int mode, int value);
 int		get_input(int op, int amp);
+
+extern int		g_output[];
+extern int		g_halts[];
+extern int		g_first[];
+extern int		g_ptr[];
+extern int		g_phase_setting[];
 
 #endif
