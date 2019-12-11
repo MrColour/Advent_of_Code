@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 13:51:01 by marvin            #+#    #+#             */
-/*   Updated: 2019/12/09 16:05:28 by kmira            ###   ########.fr       */
+/*   Updated: 2019/12/10 11:41:26 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ void	intcode(long *program)
 		else if (op % 10 == 3)
 		{
 			//Storing into value doesn't make sense. Storing into address does.
-			program[program[g_ptr[0] + 1]] = 1;
+			if ((program[g_ptr[0]] / 100) % 10 == 2)
+				program[program[g_ptr[0] + 1] + relative_base] = 1;
+			else
+				program[program[g_ptr[0] + 1]] = 1;
 			printf("INPUT: %ld\n", program[program[g_ptr[0] + 1]]);
 			g_ptr[0] += 2;
 		}
