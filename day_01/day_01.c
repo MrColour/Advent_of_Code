@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 12:08:11 by marvin            #+#    #+#             */
-/*   Updated: 2019/12/03 11:50:40 by kmira            ###   ########.fr       */
+/*   Updated: 2019/12/16 00:13:59 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,7 @@ int	main(void)
 		at = strchr(at, '\n') + 1;
 	}
 	printf("RESULT: %d\n", result);
+	system("leaks a.out");
+
 	return (0);
 }
