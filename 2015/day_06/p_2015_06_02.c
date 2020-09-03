@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 21:37:35 by home              #+#    #+#             */
-/*   Updated: 2020/09/02 21:01:16 by home             ###   ########.fr       */
+/*   Updated: 2020/09/02 21:17:35 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,10 @@ void	process_file(char grid[SIZE][SIZE], char *file_name)
 	str_file = strtok(str_file, "\n,");
 	while (str_file != NULL)
 	{
-		// printf("AT: %.25s\n", str_file);
-
+		//notice that this character is different in the three different cases.
+		// "toggle " <- ' '
+		// "turn of" <- 'f'
+		// "turn on" <- 'n'
 		op = str_file[6];
 
 		s_x1 = strpbrk(str_file, "0123456789");
@@ -73,8 +75,6 @@ void	process_file(char grid[SIZE][SIZE], char *file_name)
 		y1 = atoi(s_y1);
 		x2 = atoi(s_x2);
 		y2 = atoi(s_y2);
-
-		// printf("%d, %d and %d, %d\n", x1, y1, x2, y2);
 
 		row = 0;
 		while (row <= y2 - y1)
@@ -97,7 +97,6 @@ void	process_file(char grid[SIZE][SIZE], char *file_name)
 		}
 		str_file = strtok(NULL, "\n,");
 	}
-	(void)grid;
 }
 
 int		main(void)
