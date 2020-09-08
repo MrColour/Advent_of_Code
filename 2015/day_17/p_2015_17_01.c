@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_2015_16_01.c                                     :+:      :+:    :+:   */
+/*   p_2015_17_01.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/06 23:03:23 by home              #+#    #+#             */
-/*   Updated: 2020/09/07 16:00:42 by home             ###   ########.fr       */
+/*   Created: 2020/09/07 16:00:54 by home              #+#    #+#             */
+/*   Updated: 2020/09/07 23:47:20 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,57 +42,73 @@ char	*extract_file(char *file_name)
 	return (result);
 }
 
-int	main(void)
+int		int_cmp(const void *ptr_a, const void *ptr_b)
+{
+	int		a;
+	int		b;
+
+	a = *(int *)ptr_a;
+	b = *(int *)ptr_b;
+
+	if (a > b)
+		return (-1);
+	else
+		return (1);
+}
+
+int		exact_fill(int remaining, int at, int *cont_list, int list_size)
+{
+	int	result;
+
+	if (remaining == 0)
+		return (1);
+
+	result = 0;
+	while (at < list_size)
+	{
+		if (remaining - cont_list[at] >= 0)
+			result += exact_fill(remaining - cont_list[at], at + 1, cont_list, list_size);
+		at++;
+	}
+	return (result);
+}
+
+int		main(void)
 {
 	int		i;
-	int		j;
-	bool	match;
-	char	*ptr;
-	char	*s_tok;
+	int		size;
 	char	*str_file;
-	char	*(good_aunt_sue[11]);
+	char	*s_tok;
+	int		*cont_sizes;
 
-	good_aunt_sue[0] = " children: 3";
-	good_aunt_sue[1] = " cats: 7";
-	good_aunt_sue[2] = " samoyeds: 2";
-	good_aunt_sue[3] = " pomeranians: 3";
-	good_aunt_sue[4] = " akitas: 0";
-	good_aunt_sue[5] = " vizslas: 0";
-	good_aunt_sue[6] = " goldfish: 5";
-	good_aunt_sue[7] = " trees: 3";
-	good_aunt_sue[8] = " cars: 2";
-	good_aunt_sue[9] = " perfumes: 1";
-	good_aunt_sue[10] = NULL;
+	size = 0;
+	str_file = extract_file("input.txt");
+	s_tok = strchr(str_file, '\n');
+	while (s_tok != NULL)
+	{
+		size++;
+		s_tok++;
+		s_tok = strchr(s_tok, '\n');
+	}
+	cont_sizes = calloc(size, sizeof(*cont_sizes));
 
 	i = 0;
-	match = false;
-	str_file = extract_file("input.txt");
-	s_tok = strtok(str_file, "\n");
-	while (s_tok != NULL && match == false)
+	s_tok = str_file;
+	while (s_tok[0] != '\0')
 	{
-		match = true;
-		ptr = strchr(s_tok, ':');
-		while (ptr != NULL && match == true)
-		{
-			ptr++;
+		cont_sizes[i] = atoi(s_tok);
 
-			j = 0;
-			while (good_aunt_sue[j] != NULL)
-			{
-				if (strncmp(ptr, good_aunt_sue[j], strlen(good_aunt_sue[j])) == 0)
-					break ;
-				j++;
-			}
-
-			if (good_aunt_sue[j] == NULL)
-				match = false;
-
-			ptr = strchr(ptr, ',');
-		}
-
-		s_tok = strtok(NULL, "\n");
 		i++;
+		s_tok = strchr(s_tok, '\n');
+		s_tok++;
 	}
-	printf("RESULT: %d\n", i);
+
+	qsort(cont_sizes, i, sizeof(*cont_sizes), int_cmp);
+
+	int		result;
+
+	result = exact_fill(150, 0, cont_sizes, size);
+	printf("RESULT: %d\n", result);
+
 	return (0);
 }
