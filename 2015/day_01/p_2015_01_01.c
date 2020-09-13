@@ -6,14 +6,15 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 04:06:35 by home              #+#    #+#             */
-/*   Updated: 2020/08/31 23:54:10 by home             ###   ########.fr       */
+/*   Updated: 2020/09/13 02:05:30 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <fcntl.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
+
+#include <fcntl.h>
 
 #define BUFF_SIZE (1024)
 
