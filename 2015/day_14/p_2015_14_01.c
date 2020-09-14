@@ -6,41 +6,11 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 23:30:05 by home              #+#    #+#             */
-/*   Updated: 2020/09/05 02:38:27 by home             ###   ########.fr       */
+/*   Updated: 2020/09/13 21:13:19 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdbool.h>
-
-#include <unistd.h>
-#include <fcntl.h>
-
-#define BUFF_SIZE (1024)
-
-char	*extract_file(char *file_name)
-{
-	int		fd;
-	int		bytes_read;
-	int		size;
-	char	*result;
-
-	size = 0;
-	result = NULL;
-	fd = open(file_name, O_RDONLY);
-
-	bytes_read = 1;
-	while (bytes_read != 0)
-	{
-		result = realloc(result, size + BUFF_SIZE + 1);
-		bytes_read = read(fd, &result[size], BUFF_SIZE);
-		size += bytes_read;
-		result[size] = '\0';
-	}
-	return (result);
-}
+#include "../aoc++.h"
 
 int		calc_reindeer_dist(int speed, int fly_dur, int rest_dur, int race_dur)
 {
@@ -78,25 +48,15 @@ int		main(void)
 	str_file = strtok(str_file, "\n");
 	while (str_file != NULL)
 	{
-		// printf("STR: [ %s ]\n", str_file);
-
-		ptr = strpbrk(str_file, "1234567890-");
-		speed = atoi(ptr);
-		ptr += strspn(ptr, "1234567890-");
-
-		ptr = strpbrk(ptr, "1234567890-");
-		fly_dur = atoi(ptr);
-		ptr += strspn(ptr, "1234567890-");
-
-		ptr = strpbrk(ptr, "1234567890-");
-		rest_dur = atoi(ptr);
+		ptr = str_file;
+		ptr += fetch_int(ptr, &speed);
+		ptr += fetch_int(ptr, &fly_dur);
+		ptr += fetch_int(ptr, &rest_dur);
 
 		temp = calc_reindeer_dist(speed, fly_dur, rest_dur, race_dur);
 		if (temp > max)
 			max = temp;
 
-		// printf("%d for %d and %d\n\n", speed, fly_dur, rest_dur);
-		// printf("End: %d\n", temp);
 		str_file = strtok(NULL, "\n");
 	}
 	printf("Result: %d\n", max);

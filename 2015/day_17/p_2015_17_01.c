@@ -6,55 +6,11 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 16:00:54 by home              #+#    #+#             */
-/*   Updated: 2020/09/07 23:47:20 by home             ###   ########.fr       */
+/*   Updated: 2020/09/13 21:36:58 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-
-#include <string.h>
-#include <stdbool.h>
-
-#define BUFF_SIZE (1024)
-
-char	*extract_file(char *file_name)
-{
-	int		fd;
-	int		bytes_read;
-	int		size;
-	char	*result;
-
-	size = 0;
-	result = NULL;
-	fd = open(file_name, O_RDONLY);
-
-	bytes_read = 1;
-	while (bytes_read != 0)
-	{
-		result = realloc(result, size + BUFF_SIZE + 1);
-		bytes_read = read(fd, &result[size], BUFF_SIZE);
-		size += bytes_read;
-		result[size] = '\0';
-	}
-	return (result);
-}
-
-int		int_cmp(const void *ptr_a, const void *ptr_b)
-{
-	int		a;
-	int		b;
-
-	a = *(int *)ptr_a;
-	b = *(int *)ptr_b;
-
-	if (a > b)
-		return (-1);
-	else
-		return (1);
-}
+#include "../aoc++.h"
 
 int		exact_fill(int remaining, int at, int *cont_list, int list_size)
 {
@@ -81,15 +37,9 @@ int		main(void)
 	char	*s_tok;
 	int		*cont_sizes;
 
-	size = 0;
 	str_file = extract_file("input.txt");
-	s_tok = strchr(str_file, '\n');
-	while (s_tok != NULL)
-	{
-		size++;
-		s_tok++;
-		s_tok = strchr(s_tok, '\n');
-	}
+	size = count_occur("\n", str_file);
+
 	cont_sizes = calloc(size, sizeof(*cont_sizes));
 
 	i = 0;
@@ -103,7 +53,7 @@ int		main(void)
 		s_tok++;
 	}
 
-	qsort(cont_sizes, i, sizeof(*cont_sizes), int_cmp);
+	qsort(cont_sizes, size, sizeof(*cont_sizes), int_cmp_asc);
 
 	int		result;
 

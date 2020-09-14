@@ -6,41 +6,11 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/05 01:35:52 by home              #+#    #+#             */
-/*   Updated: 2020/09/05 02:35:24 by home             ###   ########.fr       */
+/*   Updated: 2020/09/13 21:44:28 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdbool.h>
-
-#include <unistd.h>
-#include <fcntl.h>
-
-#define BUFF_SIZE (1024)
-
-char	*extract_file(char *file_name)
-{
-	int		fd;
-	int		bytes_read;
-	int		size;
-	char	*result;
-
-	size = 0;
-	result = NULL;
-	fd = open(file_name, O_RDONLY);
-
-	bytes_read = 1;
-	while (bytes_read != 0)
-	{
-		result = realloc(result, size + BUFF_SIZE + 1);
-		bytes_read = read(fd, &result[size], BUFF_SIZE);
-		size += bytes_read;
-		result[size] = '\0';
-	}
-	return (result);
-}
+#include "../aoc++.h"
 
 typedef	struct	s_reindeer
 {
@@ -63,31 +33,19 @@ int		main(void)
 	int		reindeer_count;
 	t_reindeer	*reindeer_array;
 
-	reindeer_count = 0;
 	str_file = extract_file("input.txt");
-	str_file = strtok(str_file, "\n");
-	while (str_file != NULL)
-	{
-		str_file = strtok(NULL, "\n");
-		reindeer_count++;
-	}
+	reindeer_count = count_occur("\n", str_file);
 
 	i = 0;
-	str_file = extract_file("input.txt");
 	str_file = strtok(str_file, "\n");
 	reindeer_array = calloc(reindeer_count, sizeof(*reindeer_array));
 	while (str_file != NULL)
 	{
-		ptr = strpbrk(str_file, "1234567890-");
-		reindeer_array[i].speed = atoi(ptr);
-		ptr += strspn(ptr, "1234567890-");
+		ptr = str_file;
 
-		ptr = strpbrk(ptr, "1234567890-");
-		reindeer_array[i].fly_dur = atoi(ptr);
-		ptr += strspn(ptr, "1234567890-");
-
-		ptr = strpbrk(ptr, "1234567890-");
-		reindeer_array[i].rest_dur = atoi(ptr);
+		ptr += fetch_int(ptr, &(reindeer_array[i].speed));
+		ptr += fetch_int(ptr, &(reindeer_array[i].fly_dur));
+		ptr += fetch_int(ptr, &(reindeer_array[i].rest_dur));
 
 		reindeer_array[i].fly_t_rem = reindeer_array[i].fly_dur;
 		reindeer_array[i].rest_t_rem = reindeer_array[i].rest_dur;

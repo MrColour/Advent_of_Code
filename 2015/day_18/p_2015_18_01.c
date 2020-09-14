@@ -6,41 +6,11 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 17:39:47 by home              #+#    #+#             */
-/*   Updated: 2020/09/08 20:07:26 by home             ###   ########.fr       */
+/*   Updated: 2020/09/13 21:32:25 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-
-#include <string.h>
-#include <stdbool.h>
-
-#define BUFF_SIZE (1024)
-
-char	*extract_file(char *file_name)
-{
-	int		fd;
-	int		bytes_read;
-	int		size;
-	char	*result;
-
-	size = 0;
-	result = NULL;
-	fd = open(file_name, O_RDONLY);
-
-	bytes_read = 1;
-	while (bytes_read != 0)
-	{
-		result = realloc(result, size + BUFF_SIZE + 1);
-		bytes_read = read(fd, &result[size], BUFF_SIZE);
-		size += bytes_read;
-		result[size] = '\0';
-	}
-	return (result);
-}
+#include "../aoc++.h"
 
 bool	stay_on(char **grid, int row, int col)
 {
@@ -152,7 +122,6 @@ void	animate_lights(char **grid, char **grid_buff)
 int		main(void)
 {
 	int		i;
-	int		j;
 	int		size;
 	int		step_limit;
 	char	*str_file;
@@ -160,20 +129,13 @@ int		main(void)
 	char	**grid;
 	char	**grid_buf;
 
-	size = 0;
 	str_file = extract_file("input.txt");
-	s_tok = str_file - 1;
-	while (s_tok != NULL)
-	{
-		s_tok++;
-		s_tok = strchr(s_tok, '\n');
-		size++;
-	}
+	size = count_occur("\n", str_file) + 1;
 
 	i = 0;
+	s_tok = str_file;
 	grid = calloc(size, sizeof(*grid));
 	grid_buf = calloc(size, sizeof(*grid_buf));
-	s_tok = str_file;
 	while (s_tok != NULL && s_tok[0] != '\0')
 	{
 		grid_buf[i] = calloc(size + 1, sizeof(**grid_buf));
@@ -195,13 +157,7 @@ int		main(void)
 	result = 0;
 	while (grid[i] != NULL)
 	{
-		j = 0;
-		while (grid[i][j] != '\0')
-		{
-			if (grid[i][j] == '#')
-				result++;
-			j++;
-		}
+		result += count_occur("#", grid[i]);
 		i++;
 	}
 	printf("RESULT: %d\n", result);

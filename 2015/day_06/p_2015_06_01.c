@@ -6,41 +6,11 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 21:37:35 by home              #+#    #+#             */
-/*   Updated: 2020/09/02 21:17:26 by home             ###   ########.fr       */
+/*   Updated: 2020/09/13 22:08:58 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdbool.h>
-
-#include <unistd.h>
-#include <fcntl.h>
-
-#define BUFF_SIZE (1024)
-
-char	*extract_file(char *file_name)
-{
-	int		fd;
-	int		bytes_read;
-	int		size;
-	char	*result;
-
-	size = 0;
-	result = NULL;
-	fd = open(file_name, O_RDONLY);
-
-	bytes_read = 1;
-	while (bytes_read != 0)
-	{
-		result = realloc(result, size + BUFF_SIZE + 1);
-		bytes_read = read(fd, &result[size], BUFF_SIZE);
-		size += bytes_read;
-		result[size] = '\0';
-	}
-	return (result);
-}
+#include "../aoc++.h"
 
 #define LIT (42)
 #define OFF (~42)
@@ -51,13 +21,12 @@ void	process_file(char grid[SIZE][SIZE], char *file_name)
 {
 	char	*str_file;
 	int		x1, y1, x2, y2;
-	char	*s_x1, *s_y1, *s_x2, *s_y2;
 
 	int		row, col;
 	char	op;
 
 	str_file = extract_file(file_name);
-	str_file = strtok(str_file, "\n,");
+	str_file = strtok(str_file, "\n");
 	while (str_file != NULL)
 	{
 		//notice that this character is different in the three different cases.
@@ -66,18 +35,10 @@ void	process_file(char grid[SIZE][SIZE], char *file_name)
 		// "turn on" <- 'n'
 		op = str_file[6];
 
-		s_x1 = strpbrk(str_file, "0123456789");
-		str_file = strtok(NULL, "\n,");
-		s_y1 = strpbrk(str_file, "0123456789");
-
-		s_x2 = strpbrk(&str_file[4], "0123456789");
-		str_file = strtok(NULL, "\n,");
-		s_y2 = strpbrk(str_file, "0123456789");
-
-		x1 = atoi(s_x1);
-		y1 = atoi(s_y1);
-		x2 = atoi(s_x2);
-		y2 = atoi(s_y2);
+		str_file += fetch_int(str_file, &x1);
+		str_file += fetch_int(str_file, &y1);
+		str_file += fetch_int(str_file, &x2);
+		str_file += fetch_int(str_file, &y2);
 
 		row = 0;
 		while (row <= y2 - y1)
@@ -100,7 +61,7 @@ void	process_file(char grid[SIZE][SIZE], char *file_name)
 			}
 			row++;
 		}
-		str_file = strtok(NULL, "\n,");
+		str_file = strtok(NULL, "\n");
 	}
 }
 
