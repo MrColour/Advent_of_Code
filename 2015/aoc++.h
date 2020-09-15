@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 00:21:00 by home              #+#    #+#             */
-/*   Updated: 2020/09/13 22:09:04 by home             ###   ########.fr       */
+/*   Updated: 2020/09/14 16:19:48 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		skip_space(char *src, int times) { return (skip_char(src, times, ' '));
 //Other
 
 int		min(int a, int b) {return ((a < b) ? a : b);}
-int		max(int a, int b) {return ((a < b) ? a : b);}
+int		max(int a, int b) {return ((a > b) ? a : b);}
 
 bool	bound(int l, int c, int r) {return ((l <= c && c <= r) ? true : false);}
 bool	bound_box(int l, int x, int r, int b, int y, int t) {return (((l <= x && x <= r) && (b <= y && y <= t)) ? true : false);}
