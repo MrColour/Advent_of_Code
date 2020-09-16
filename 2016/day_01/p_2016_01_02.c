@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 19:35:28 by home              #+#    #+#             */
-/*   Updated: 2020/09/14 20:57:07 by home             ###   ########.fr       */
+/*   Updated: 2020/09/15 23:04:42 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ bool	intersect(t_location a, t_location b)
 
 	if (a.p_y == a.y)
 	{
+		//NOTE: bound was modified for working program
 		if (bound(b.p_y, a.y, b.y) && bound(a.p_x, b.x, a.x))
 		{
 			printf("here\n");
