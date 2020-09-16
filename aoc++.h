@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 00:21:00 by home              #+#    #+#             */
-/*   Updated: 2020/09/13 22:51:29 by home             ###   ########.fr       */
+/*   Updated: 2020/09/16 01:11:54 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int		str_cmp(const void *a, const void *b) {return ( strcmp((*(char **)a) , (*(c
 
 //String utility functions
 
-#define DIGITS "1234567890-"
+#define DIGITS "0123456789-"
+#define HEX "0123456789abcdef"
 
 // Rank: * * * * *
 int		count_occur(char *key, char *src) {int occur = 0; int l = strlen(key); while ((src = strstr(src, key)) != NULL) {occur++; src += l;} return (occur);}
