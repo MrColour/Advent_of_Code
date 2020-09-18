@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 00:21:00 by home              #+#    #+#             */
-/*   Updated: 2020/09/16 01:11:54 by home             ###   ########.fr       */
+/*   Updated: 2020/09/18 02:00:41 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		skip_space(char *src, int times) { return (skip_char(src, times, ' '));
 
 //Other
 
-// Rank: * • • • •
+// Rank: * * • • •
 int		min(int a, int b) {return ((a < b) ? a : b);}
 int		max(int a, int b) {return ((a > b) ? a : b);}
 
