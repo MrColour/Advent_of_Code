@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 03:41:41 by home              #+#    #+#             */
-/*   Updated: 2020/09/17 19:21:55 by home             ###   ########.fr       */
+/*   Updated: 2020/09/17 20:02:33 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ void	rotate_row(char (*screen)[51], int which, int amount)
 	char	buffer[50];
 
 	amount %= 50;
-	memcpy(buffer, screen[0], 50);
-	// printf("%.50s\n", screen[0]);
+	memcpy(buffer, screen[which], 50);
 	memmove(screen[which], &(buffer[50 - amount]), amount);
 	memmove(&(screen[which][amount]), buffer, 50 - amount);
 }
@@ -54,7 +53,7 @@ void	rotate_col(char (*screen)[51], int which, int amount)
 		i++;
 	}
 
-	amount %= 5;
+	amount %= 6;
 	memcpy(buffer_buff, buffer, 6);
 	memmove(buffer, &buffer_buff[6 - amount], amount);
 	memmove(&buffer[amount], buffer_buff, 6 - amount);
@@ -82,14 +81,12 @@ int		main(void)
 
 	while (s_tok != NULL)
 	{
-		// printf("STR: %s\n", s_tok);
 		ptr = s_tok;
 		ptr += fetch_int(ptr, &a);
 		ptr += fetch_int(ptr, &b);
 
-		// printf("%d", i);
 		if (s_tok[1] == 'e')
-			rect_on(&(screen[0]), a, b);
+			rect_on(&(screen[0]), b, a);
 		else
 		{
 			if (s_tok[7] == 'r')
@@ -97,7 +94,7 @@ int		main(void)
 			else
 				rotate_col(screen, a, b);
 		}
-		// printf("\n");
+
 		s_tok = strtok(NULL, "\n");
 	}
 
@@ -106,13 +103,13 @@ int		main(void)
 
 	i = 0;
 	lights_on = 0;
-	while (i < 5)
+	while (i < 6)
 	{
 		screen[i][50] = '\0';
 		lights_on += count_occur("#", screen[i]);
-		printf("%.50s\n", screen[i]);
 		i++;
 	}
 	printf("RESULT: %d\n", lights_on);
 	return (0);
 }
+
