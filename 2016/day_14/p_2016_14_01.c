@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 20:55:48 by home              #+#    #+#             */
-/*   Updated: 2020/09/21 01:15:16 by home             ###   ########.fr       */
+/*   Updated: 2020/09/21 21:13:02 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,6 @@
 
 // 	struct s_hash	*next;
 // }				t_hash;
-
-void	hash_to_str(unsigned char *hash, unsigned char *dst)
-{
-	int		i;
-
-	i = 0;
-	while (i < 16)
-	{
-		dst[i * 2] = HEX[hash[i] >> 4];
-		dst[i * 2 + 1] = HEX[hash[i] & 0x0F];
-		i++;
-	}
-}
 
 char	has_n_kind(unsigned char *hash, int n)
 {
