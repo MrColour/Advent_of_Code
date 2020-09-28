@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 13:20:10 by home              #+#    #+#             */
-/*   Updated: 2020/09/23 16:03:45 by home             ###   ########.fr       */
+/*   Updated: 2020/09/27 23:32:49 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,24 @@ int		main(void)
 	int		i;
 	int		newlines;
 	char	*str_file;
-	char	*s_tok;
 	char	**disk;
 
 	str_file = extract_file("input.txt");
-	newlines = count_occur("\n", str_file);
 
-	i = 0;
-	s_tok = strtok(str_file, "\n");
-	disk = calloc(newlines, sizeof(*disk));
-	while (i < newlines)
-	{
-		disk[i] = s_tok;
-		s_tok = strtok(NULL, "\n");
-		i++;
-	}
+	// char	*s_tok;
+	// newlines = count_occur("\n", str_file);
+	// i = 0;
+	// s_tok = strtok(str_file, "\n");
+	// disk = calloc(newlines, sizeof(*disk));
+	// while (i < newlines)
+	// {
+	// 	disk[i] = s_tok;
+	// 	s_tok = strtok(NULL, "\n");
+	// 	i++;
+	// }
+
+	NEWLINE_SPLIT(disk, str_file, newlines)
+
 	disk = &(disk[2]);
 	newlines -= 2;
 
@@ -76,7 +79,7 @@ int		main(void)
 			fetch_int(strstr(strstr(disk[j], "T ") + 1, "T "), &avail);
 			if (used <= avail)
 			{
-				printf("DISK: %d %d, %s and %s\n", used, avail, disk[i], disk[j]);
+				// printf("DISK: %d %d, %s and %s\n", used, avail, disk[i], disk[j]);
 				break ;
 			}
 			j++;

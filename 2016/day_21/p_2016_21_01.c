@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 23:23:03 by home              #+#    #+#             */
-/*   Updated: 2020/09/27 02:21:06 by home             ###   ########.fr       */
+/*   Updated: 2020/09/27 23:28:41 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,9 +208,9 @@ char	*do_op(char *instr, char *string)
 	{
 		if (strncmp(instr, commands[i].command, strlen(commands[i].command)) == 0)
 		{
-			printf("INS: %s\n", instr);
+			// printf("INS: %s\n", instr);
 			commands[i].func(instr, string);
-			printf("STR: %s\n", string);
+			// printf("STR: %s\n", string);
 			break ;
 		}
 		i++;
@@ -223,25 +223,28 @@ int		main(void)
 	int		newlines;
 	char	*str_file;
 	char	*start;
-	char	*s_tok;
 	char	**instr;
 
 	start = strdup("abcdefgh");
 	str_file = extract_file("input.txt");
-	newlines = count_occur("\n", str_file);
-	instr = calloc(newlines, sizeof(*instr));
 
 	int		i;
 
-	i = 0;
-	s_tok = strtok(str_file, "\n");
-	while (s_tok != NULL)
-	{
-		instr[i] = s_tok;
-		s_tok = strtok(NULL, "\n");
-		// printf("%s\n", instr[i]);
-		i++;
-	}
+	// char	*s_tok;
+
+	// i = 0;
+	// newlines = count_occur("\n", str_file);
+	// instr = calloc(newlines, sizeof(*instr));
+	// s_tok = strtok(str_file, "\n");
+	// while (s_tok != NULL)
+	// {
+	// 	instr[i] = s_tok;
+	// 	s_tok = strtok(NULL, "\n");
+	// 	// printf("%s\n", instr[i]);
+	// 	i++;
+	// }
+
+	NEWLINE_SPLIT(instr, str_file, newlines);
 
 	char *string;
 
@@ -249,7 +252,7 @@ int		main(void)
 	string = start;
 	while (i < newlines)
 	{
-		printf("AT: %d ", i);
+		// printf("AT: %d ", i);
 		string = do_op(instr[i], string);
 		i++;
 	}

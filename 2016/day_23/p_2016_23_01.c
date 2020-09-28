@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 02:03:54 by home              #+#    #+#             */
-/*   Updated: 2020/09/25 19:22:52 by home             ###   ########.fr       */
+/*   Updated: 2020/09/27 23:36:52 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,29 +78,31 @@ int		do_op(char **code, int ins_ptr, int *reg, int len)
 int		main(void)
 {
 	char	*str_file;
-	char	*s_tok;
 	char	**instr;
 	int		len;
 	int		i_ptr;
 
 	str_file = extract_file("input.txt");
-	len = count_occur("\n", str_file);
-	instr = calloc(len + 1, sizeof(*instr));
 
-	i_ptr = 0;
-	s_tok = strtok(str_file, "\n");
-	while (s_tok != NULL)
-	{
-		instr[i_ptr] = s_tok;
-		s_tok = strtok(NULL, "\n");
-		i_ptr++;
-	}
+	// char	*s_tok;
+	// i_ptr = 0;
+	// len = count_occur("\n", str_file);
+	// instr = calloc(len, sizeof(*instr));
+	// s_tok = strtok(str_file, "\n");
+	// while (s_tok != NULL)
+	// {
+	// 	instr[i_ptr] = s_tok;
+	// 	s_tok = strtok(NULL, "\n");
+	// 	i_ptr++;
+	// }
+
+	NEWLINE_SPLIT(instr, str_file, len)
 
 	int	reg[4] = { 0 };
 
 	i_ptr = 0;
 
-	reg[0] = 7;
+	reg[0] = 12;
 	while (i_ptr < len)
 		i_ptr += do_op(instr, i_ptr, reg, len);
 

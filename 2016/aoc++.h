@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 00:21:00 by home              #+#    #+#             */
-/*   Updated: 2020/09/27 21:18:44 by home             ###   ########.fr       */
+/*   Updated: 2020/09/27 23:42:41 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,55 @@ bool	bound_box(int l, int x, int r, int b, int y, int t) {return (((l <= x && x 
 bool	unique_int(int num) {
 	int set[10] = { 0 }; int temp; while (num != 0) { temp = num % 10; temp = (temp < 0 ? -1 * temp : temp); set[temp]++; if (set[temp] >= 2) break ; num /= 10; } return ((set[temp] <= 1) ? true : false);
 }
+
+// The below is a macro so that the variable itself can be dereferenced.
+// If it were a function, one would have to pass sizeof(*var) and sizeof(**var)
+//
+// One could however argue that on most modern architechtures the size of pointers
+// themselves are always 8. But this can be side stepped with macros so why not.
+
+typedef	struct	_alloc_meta
+{
+	void		**iter_addr;	// The address of where the iter is, not the iter itself.
+	int			*index;			// What index is currently bieng used.
+
+	void		*s_delim;		// Information about the start condition of the delimit.
+	void		*e_delim;		// Information about the end condition of the delimit.
+}				t_alloc_meta;
+
+t_alloc_meta g_ameta = {
+	.iter_addr = NULL,
+	.index = NULL,
+
+	.s_delim =  NULL,
+	.e_delim = NULL,
+};
+
+void	*calloc_wrapper(t_alloc_meta *alloc_info __attribute__((unused)), size_t count, size_t elem_size)
+{ return (calloc(count, elem_size)); }
+
+void	*strtok_alloc(t_alloc_meta *alloc_info, size_t count __attribute__((unused)), size_t elem_size __attribute__((unused)))
+{	char *s_tok;
+
+	s_tok = *(char **)(alloc_info->iter_addr);
+	*(alloc_info->iter_addr) = strtok(NULL, alloc_info->s_delim);
+	return (s_tok);}
+
+# define ALLOC_2D(name, row, col, alloc_func, alloc_data)			\
+	name = calloc(row, sizeof(*name));								\
+	for (int i = 0; i < row; i++) {									\
+		name[i] = alloc_func(alloc_data, col, sizeof(**name));		\
+	};																\
+
+# define NEWLINE_SPLIT(dst, src, len)								\
+	char	*_s_tok;												\
+	len = count_occur("\n", src);									\
+	_s_tok = strtok(src, "\n");										\
+																	\
+	g_ameta.s_delim = "\n";											\
+	g_ameta.iter_addr = (void **)(&_s_tok);							\
+	ALLOC_2D(dst, len, 0, strtok_alloc, &g_ameta);					\
+
+
 
 #endif
