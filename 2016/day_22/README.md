@@ -5,7 +5,7 @@ The usual way to solve such a problem would be to implement
 the A* algorithm.
 
 My current solution is using BFS with a queue. The only problem
-is that the nature of the problem may require a lot of memory to
+is that the nature of the problem requires a lot of memory to
 end up being used.
 
 UPDATE: It seems that even BFS would not be a possible solution
