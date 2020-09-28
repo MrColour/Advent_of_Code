@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 00:21:00 by home              #+#    #+#             */
-/*   Updated: 2020/09/27 23:42:41 by home             ###   ########.fr       */
+/*   Updated: 2020/09/28 00:52:04 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,27 @@ void	*strtok_alloc(t_alloc_meta *alloc_info, size_t count __attribute__((unused)
 	*(alloc_info->iter_addr) = strtok(NULL, alloc_info->s_delim);
 	return (s_tok);}
 
+void	*strsplit_alloc(t_alloc_meta *alloc_info, size_t count __attribute__((unused)), size_t elem_size __attribute__((unused)))
+{
+	char *str_s;
+	char *str_e;
+
+	if (alloc_info->s_delim == NULL)
+		str_s = *(char **)alloc_info->iter_addr;
+	else
+	{
+		str_s = strpbrk(*(alloc_info->iter_addr), alloc_info->s_delim);
+		str_s[0] = '\0';
+		str_s++;
+	}
+
+	str_e = strpbrk(str_s, alloc_info->e_delim);
+	str_e[0] = '\0';
+
+	*(alloc_info->iter_addr) = str_e + 1;
+	(*alloc_info->index)++;
+	return (str_s);}
+
 # define ALLOC_2D(name, row, col, alloc_func, alloc_data)			\
 	name = calloc(row, sizeof(*name));								\
 	for (int i = 0; i < row; i++) {									\
@@ -128,6 +149,19 @@ void	*strtok_alloc(t_alloc_meta *alloc_info, size_t count __attribute__((unused)
 	g_ameta.iter_addr = (void **)(&_s_tok);							\
 	ALLOC_2D(dst, len, 0, strtok_alloc, &g_ameta);					\
 
+
+
+# define STR_SPLIT(dst, src, s_delim, e_delim, len)					\
+	char	*_src_cpy = src;										\
+	int		_alloc_index = 0;										\
+	len = count_occur(e_delim, _src_cpy);							\
+																	\
+	g_ameta.iter_addr = (void **)(&_src_cpy);						\
+	g_ameta.index = &_alloc_index;									\
+	g_ameta.s_delim = s_delim;										\
+	g_ameta.e_delim = e_delim;										\
+	ALLOC_2D(dst, len, 0, strsplit_alloc, &g_ameta);				\
+	len = g_ameta.index;											\
 
 
 #endif
