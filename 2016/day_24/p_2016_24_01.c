@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 01:26:05 by home              #+#    #+#             */
-/*   Updated: 2020/09/27 23:42:23 by home             ###   ########.fr       */
+/*   Updated: 2020/09/28 00:51:22 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,21 @@ int		main(void)
 	// 	i++;
 	// }
 
-	NEWLINE_SPLIT(map, str_file, newlines)
+	// NEWLINE_SPLIT(map, str_file, newlines)
+
+	// STR_SPLIT(map, str_file, NULL, "\n", newlines)
+
+	char	*_src_cpy = str_file;
+	int		_alloc_index = 0;
+	newlines = count_occur("\n", _src_cpy);
+
+	g_ameta.iter_addr = (void **)(&_src_cpy);
+	g_ameta.index = &_alloc_index;
+	g_ameta.s_delim = NULL;
+	g_ameta.e_delim = "\n";
+	ALLOC_2D(map, newlines, 0, strsplit_alloc, &g_ameta);
+	newlines = *g_ameta.index;
+
 
 	fill_dis_table(dis, map);
 
