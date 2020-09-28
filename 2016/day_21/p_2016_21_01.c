@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 23:23:03 by home              #+#    #+#             */
-/*   Updated: 2020/09/27 23:28:41 by home             ###   ########.fr       */
+/*   Updated: 2020/09/28 03:51:52 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,13 @@ char		*swap_position_op(char *instr, char *string)
 	int		first;
 	int		second;
 	char	*ptr;
-	char	temp;
 
 	ptr = instr;
 	ptr += fetch_int(ptr, &first);
 	ptr += fetch_int(ptr, &second);
 
 	// printf("swap p %d with %d\n", first, second);
-	temp = string[first];
-
-	string[first] = string[second];
-	string[second] = temp;
+	SWAP(string[first], string[second], char)
 
 	return (string);
 };
@@ -129,7 +125,6 @@ char		*rotate_op(char *instr, char *string)
 char		*reverse_op(char *instr, char *string)
 {
 	char	*ptr;
-	char	temp;
 	int		x;
 	int		y;
 
@@ -140,10 +135,7 @@ char		*reverse_op(char *instr, char *string)
 	// printf("reverse %d - %d\n", x, y);
 	while (x < y)
 	{
-		temp = string[x];
-
-		string[x] = string[y];
-		string[y] = temp;
+		SWAP(string[x], string[y], char)
 
 		x++;
 		y--;

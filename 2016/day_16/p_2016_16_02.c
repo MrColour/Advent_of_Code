@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 03:53:53 by home              #+#    #+#             */
-/*   Updated: 2020/09/21 04:39:39 by home             ###   ########.fr       */
+/*   Updated: 2020/09/28 03:45:13 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,13 @@ char	*strr(char *s)
 {
 	int		i;
 	int		j;
-	char	temp;
 	char	*result;
 
 	i = 0;
 	j = strlen(s) - 1;
 	while (i < j)
 	{
-		temp = s[i];
-
-		s[i] = s[j];
-		s[j] = temp;
+		SWAP(s[i], s[j], char)
 
 		i++;
 		j--;

@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 01:26:05 by home              #+#    #+#             */
-/*   Updated: 2020/09/28 00:51:22 by home             ###   ########.fr       */
+/*   Updated: 2020/09/28 03:56:00 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,53 +144,17 @@ void	dfs_permute(int *choosen, int curr, int *min, int **dis_table, int from, in
 int		main(void)
 {
 	char	*str_file;
-	// char	*s_tok;
 	char	**map;
 
 	int		i;
 	int		newlines;
 	int		**dis;
 
-	// i = 0;
-	// dis = calloc(11, sizeof(*dis));
-	// while (i < 10)
-	// {
-	// 	dis[i] = calloc(10, sizeof(**dis));
-	// 	i++;
-	// }
-
 	ALLOC_2D(dis, 11, 10, calloc_wrapper, NULL)
-
 	dis = &(dis[1]);
 
 	str_file = extract_file("input.txt");
-	newlines = count_occur("\n", str_file);
-
-	// i = 0;
-	// map = calloc(newlines, sizeof(*map));
-	// s_tok = strtok(str_file, "\n");
-	// while (s_tok != NULL)
-	// {
-	// 	map[i] = s_tok;
-	// 	s_tok = strtok(NULL, "\n");
-	// 	i++;
-	// }
-
-	// NEWLINE_SPLIT(map, str_file, newlines)
-
-	// STR_SPLIT(map, str_file, NULL, "\n", newlines)
-
-	char	*_src_cpy = str_file;
-	int		_alloc_index = 0;
-	newlines = count_occur("\n", _src_cpy);
-
-	g_ameta.iter_addr = (void **)(&_src_cpy);
-	g_ameta.index = &_alloc_index;
-	g_ameta.s_delim = NULL;
-	g_ameta.e_delim = "\n";
-	ALLOC_2D(map, newlines, 0, strsplit_alloc, &g_ameta);
-	newlines = *g_ameta.index;
-
+	NEWLINE_SPLIT(map, str_file, newlines)
 
 	fill_dis_table(dis, map);
 
