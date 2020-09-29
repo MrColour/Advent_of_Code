@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 23:52:51 by home              #+#    #+#             */
-/*   Updated: 2020/09/28 04:06:44 by home             ###   ########.fr       */
+/*   Updated: 2020/09/28 16:06:07 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(void)
 		str_file = strtok(NULL, "x\n");
 
 		total_ribbon += (l * w * h);
-		total_ribbon += (_min(_min((l + w), (w + h)), (h + l))) * 2;
+		total_ribbon += (MIN(MIN((l + w), (w + h)), (h + l))) * 2;
 	}
 
 	printf("Result: %d\n", total_ribbon);

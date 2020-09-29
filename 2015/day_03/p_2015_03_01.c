@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 02:01:35 by home              #+#    #+#             */
-/*   Updated: 2020/09/28 04:08:20 by home             ###   ########.fr       */
+/*   Updated: 2020/09/28 17:12:33 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,7 @@ void	process_str_file(pos2i *dest, char *str_file)
 
 	while (str_file[i] != '\0')
 	{
-		if (str_file[i] == '^')
-			y++;
-		else if (str_file[i] == 'v')
-			y--;
-		else if (str_file[i] == '<')
-			x--;
-		else
-			x++;
+		direction("^v<>", str_file[i], &x, &y);
 
 		dest[i].x = x;
 		dest[i].y = y;

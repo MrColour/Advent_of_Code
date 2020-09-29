@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 23:52:51 by home              #+#    #+#             */
-/*   Updated: 2020/09/28 04:05:02 by home             ###   ########.fr       */
+/*   Updated: 2020/09/28 16:05:56 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(void)
 		str_file = strtok(NULL, "x\n");
 
 		total_paper += (2 * l * w) + (2 * w * h) + (2 * h * l);
-		total_paper += _min(_min((l * w), (w * h)), (h * l));
+		total_paper += MIN(MIN((l * w), (w * h)), (h * l));
 	}
 
 	printf("Result: %d\n", total_paper);

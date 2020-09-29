@@ -6,40 +6,11 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 02:01:35 by home              #+#    #+#             */
-/*   Updated: 2020/09/01 03:34:17 by home             ###   ########.fr       */
+/*   Updated: 2020/09/28 17:13:36 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <string.h>
-
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdlib.h>
-
-#define BUFF_SIZE (1024)
-
-char	*extract_file(char *file_name)
-{
-	int		fd;
-	int		bytes_read;
-	int		size;
-	char	*result;
-
-	size = 0;
-	result = NULL;
-	fd = open(file_name, O_RDONLY);
-
-	bytes_read = 1;
-	while (bytes_read != 0)
-	{
-		result = realloc(result, size + BUFF_SIZE + 1);
-		bytes_read = read(fd, &result[size], BUFF_SIZE);
-		size += bytes_read;
-		result[size] = '\0';
-	}
-	return (result);
-}
+#include "../aoc++.h"
 
 typedef	struct	pos2i
 {
@@ -74,14 +45,7 @@ void	process_str_file(pos2i *dest, char *str_file)
 			c_y = &r_y;
 		}
 
-		if (str_file[i] == '^')
-			(*c_y)++;
-		else if (str_file[i] == 'v')
-			(*c_y)--;
-		else if (str_file[i] == '<')
-			(*c_x)--;
-		else
-			(*c_x)++;
+		direction("^v<>", str_file[i], c_x, c_y);
 
 		dest[i].x = *c_x;
 		dest[i].y = *c_y;

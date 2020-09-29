@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 23:30:05 by home              #+#    #+#             */
-/*   Updated: 2020/09/28 03:22:02 by home             ###   ########.fr       */
+/*   Updated: 2020/09/28 16:06:39 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		main(void)
 		ptr += fetch_int(ptr, &rest_dur);
 
 		temp = calc_reindeer_dist(speed, fly_dur, rest_dur, race_dur);
-		max = _max(temp, max);
+		max = MAX(temp, max);
 
 		str_file = strtok(NULL, "\n");
 	}

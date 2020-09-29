@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 00:21:00 by home              #+#    #+#             */
-/*   Updated: 2020/09/28 03:55:00 by home             ###   ########.fr       */
+/*   Updated: 2020/09/28 17:47:33 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,32 @@ int		skip_space(char *src, int times) { return (skip_char(src, times, ' '));
 //Other
 
 // Rank: * * • • •
-int		_min(int a, int b) {return ((a < b) ? a : b);}
-int		_max(int a, int b) {return ((a > b) ? a : b);}
+int		MIN(int a, int b) {return ((a < b) ? a : b);}
+int		MAX(int a, int b) {return ((a > b) ? a : b);}
 
 // Rank: * * • • •
 // left <= x <= right
 bool	bound(int l, int x, int r) {return ((l <= x && x <= r) ? true : false);}
 bool	bound_box(int l, int x, int r, int b, int y, int t) {return (((l <= x && x <= r) && (b <= y && y <= t)) ? true : false);}
+
+enum	e_direction
+{
+	UP =	0,
+	DOWN =	1,
+	LEFT =	2,
+	RIGHT =	3,
+};
+
+// Rank: * * • • •
+// Keypad: UDLR in this order.
+void	direction(char *dir_pad, char key,int *x, int *y)
+{
+	if		(dir_pad[UP  ] == key) (*y)++;
+	else if (dir_pad[DOWN] == key) (*y)--;
+	else if (dir_pad[LEFT] == key) (*x)--;
+	else						   (*x)++;
+
+}
 
 // Rank: • • • • •
 bool	unique_int(int num) {
@@ -135,8 +154,8 @@ void	*strsplit_alloc(t_alloc_meta *alloc_info, size_t count __attribute__((unuse
 
 # define ALLOC_2D(name, row, col, alloc_func, alloc_data)			\
 	name = calloc(row + 1, sizeof(*name));							\
-	for (int i = 0; i < row; i++) {									\
-		name[i] = alloc_func(alloc_data, col, sizeof(**name));		\
+	for (int _iname = 0; _iname < row; _iname++) {					\
+		name[_iname] = alloc_func(alloc_data, col, sizeof(**name));	\
 	};																\
 
 # define NEWLINE_SPLIT(dst, src, len)								\
