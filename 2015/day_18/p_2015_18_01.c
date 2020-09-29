@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 17:39:47 by home              #+#    #+#             */
-/*   Updated: 2020/09/13 21:32:25 by home             ###   ########.fr       */
+/*   Updated: 2020/09/28 21:33:25 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,27 +121,19 @@ void	animate_lights(char **grid, char **grid_buff)
 
 int		main(void)
 {
-	int		i;
 	int		size;
 	int		step_limit;
 	char	*str_file;
-	char	*s_tok;
 	char	**grid;
 	char	**grid_buf;
 
 	str_file = extract_file("input.txt");
-	size = count_occur("\n", str_file) + 1;
 
-	i = 0;
-	s_tok = str_file;
-	grid = calloc(size, sizeof(*grid));
-	grid_buf = calloc(size, sizeof(*grid_buf));
-	while (s_tok != NULL && s_tok[0] != '\0')
-	{
-		grid_buf[i] = calloc(size + 1, sizeof(**grid_buf));
-		grid[i] = strsep(&s_tok, "\n");
-		i++;
-	}
+	size = count_occur("\n", str_file) + 1;
+	ALLOC_2D(grid_buf, size, size, calloc_wrapper, NULL)
+	NEWLINE_SPLIT(grid, str_file, size)
+
+	int		i;
 
 	i = 0;
 	step_limit = 100;

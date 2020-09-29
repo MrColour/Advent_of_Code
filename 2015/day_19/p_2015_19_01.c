@@ -6,41 +6,11 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 21:48:14 by home              #+#    #+#             */
-/*   Updated: 2020/09/13 03:01:25 by home             ###   ########.fr       */
+/*   Updated: 2020/09/28 21:48:50 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-
-#include <string.h>
-#include <stdbool.h>
-
-#define BUFF_SIZE (1024)
-
-char	*extract_file(char *file_name)
-{
-	int		fd;
-	int		bytes_read;
-	int		size;
-	char	*result;
-
-	size = 0;
-	result = NULL;
-	fd = open(file_name, O_RDONLY);
-
-	bytes_read = 1;
-	while (bytes_read != 0)
-	{
-		result = realloc(result, size + BUFF_SIZE + 1);
-		bytes_read = read(fd, &result[size], BUFF_SIZE);
-		size += bytes_read;
-		result[size] = '\0';
-	}
-	return (result);
-}
+#include "../aoc++.h"
 
 void	find_all_occurrences(char *needle, char *haystack, FILE *stream, char *replacement)
 {
@@ -64,7 +34,6 @@ void	find_all_occurrences(char *needle, char *haystack, FILE *stream, char *repl
 		fprintf(stream, "%s\n", loc);
 		loc = strstr(loc, needle);
 	}
-	(void)stream;
 }
 
 char	*apply_transitions(char *transition, int transition_count, char *mol)
@@ -96,18 +65,6 @@ char	*apply_transitions(char *transition, int transition_count, char *mol)
 	return (all_tranforms);
 }
 
-int		m_cmp(const void *ptr_a, const void *ptr_b)
-{
-	int		result;
-	char	*str_a;
-	char	*str_b;
-
-	str_a = *(char **)ptr_a;
-	str_b = *(char **)ptr_b;
-	result = strcmp(str_a, str_b);
-	return (result);
-}
-
 int		main(void)
 {
 	int		transitions_count;
@@ -118,22 +75,11 @@ int		main(void)
 
 	str_file = extract_file("input.txt");
 
-	prev = NULL;
-	transitions_count = -1;
-	s_tok = str_file - 1;
-	while (s_tok != NULL)
-	{
-		s_tok++;
-		// printf("STR %d: %.4s\n", transitions_count, s_tok);
-		prev = s_tok;
-		s_tok = strchr(s_tok, '>');
-		transitions_count++;
-	}
+	transitions_count = count_occur("=>", str_file);
 
-	s_tok = strchr(prev, '\n') + 1;
-	input_mol = strchr(s_tok, '\n') + 1;
+	input_mol = strstr(str_file, "\n\n") + 2;
 	strchr(input_mol, '\n')[0] = '\0';
-	printf("MOL: %s\n", input_mol);
+	// printf("MOL: %s\n", input_mol);
 
 	int		i;
 	int		result;
@@ -142,29 +88,12 @@ int		main(void)
 	char	**strings;
 
 	t_str = apply_transitions(str_file, transitions_count, input_mol);
-
-	t_size = 0;
-	s_tok = t_str - 1;
-	while (s_tok != NULL)
-	{
-		s_tok++;
-		t_size++;
-		s_tok = strchr(s_tok, '\n');
-	}
-	printf("SIZE: %d\n", t_size);
 	// printf("%s", t_str);
 
-	i = 0;
-	strings = calloc(t_size, sizeof(*strings));
-	strings[i] = strtok(t_str, "\n");
-	while (strings[i] != NULL)
-	{
-		// printf("STR: %s\n", strings[i]);
-		strings[i + 1] = strtok(NULL, "\n");
-		i++;
-	}
+	NEWLINE_SPLIT(strings, t_str, t_size)
+	// printf("SIZE: %d\n", t_size);
 
-	qsort(strings, t_size - 1, sizeof(*strings), m_cmp);
+	qsort(strings, t_size - 1, sizeof(*strings), str_cmp);
 
 	i = 1;
 	result = 1;
@@ -172,7 +101,7 @@ int		main(void)
 	{
 		if (strcmp(strings[i - 1], strings[i]) != 0)
 			result++;
-		printf("STR: %s\n", strings[i]);
+		// printf("STR: %s\n", strings[i]);
 		i++;
 	}
 	printf("RESULT: %d\n", result);
