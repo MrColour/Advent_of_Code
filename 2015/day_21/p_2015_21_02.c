@@ -6,9 +6,11 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 01:03:28 by home              #+#    #+#             */
-/*   Updated: 2020/09/10 03:41:21 by home             ###   ########.fr       */
+/*   Updated: 2020/09/28 22:02:00 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../aoc++.h"
 
 #include "p_2015_21_01.h"
 
@@ -26,7 +28,7 @@ t_item	*fetch_worst_items(t_item *weapons, int w_size, t_item *rings, int r_size
 
 	i = 0;
 	finding = weapons[0].stat;
-	value_weapons = calloc(end_att, sizeof(*value_weapons));
+	value_weapons = calloc(end_att + 1, sizeof(*value_weapons));
 	while (finding <= end_att)
 	{
 
@@ -96,20 +98,12 @@ int		main(void)
 {
 	t_boss	boss;
 	char	*str_file;
-	char	*s_tok;
 
 	str_file = extract_file("input.txt");
 
-	s_tok = strpbrk(str_file, "1234567890-");
-	boss.hp = atoi(s_tok);
-
-	s_tok += strspn(s_tok, "1234567890-");
-	s_tok = strpbrk(s_tok, "1234567890-");
-	boss.att = atoi(s_tok);
-
-	s_tok += strspn(s_tok, "1234567890-");
-	s_tok = strpbrk(s_tok, "1234567890-");
-	boss.def = atoi(s_tok);
+	str_file += fetch_int(str_file, &(boss.hp));
+	str_file += fetch_int(str_file, &(boss.att));
+	str_file += fetch_int(str_file, &(boss.def));
 
 	t_item	*worst_weapons;
 	t_item	weapons[5];
