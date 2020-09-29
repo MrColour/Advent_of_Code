@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/05 01:35:52 by home              #+#    #+#             */
-/*   Updated: 2020/09/13 21:44:28 by home             ###   ########.fr       */
+/*   Updated: 2020/09/28 20:56:22 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,7 @@ int		main(void)
 				reindeer_array[i].fly_t_rem = reindeer_array[i].fly_dur;
 			}
 
-			if (reindeer_array[i].cur_dist > lead_dis)
-				lead_dis = reindeer_array[i].cur_dist;
+			lead_dis = MAX(reindeer_array[i].cur_dist, lead_dis);
 
 			i++;
 		}
@@ -103,8 +102,7 @@ int		main(void)
 	while (i < reindeer_count)
 	{
 		// printf("%d\n", reindeer_array[i].points);
-		if (reindeer_array[i].points > max_points)
-			max_points = reindeer_array[i].points;
+		max_points = MAX(reindeer_array[i].points, max_points);
 		i++;
 	}
 	printf("Result: %d\n", max_points);

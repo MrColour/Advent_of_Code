@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 00:21:00 by home              #+#    #+#             */
-/*   Updated: 2020/09/28 17:47:33 by home             ###   ########.fr       */
+/*   Updated: 2020/09/28 20:54:04 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 //File functions
 // Rank: * * * * *
 char	*extract_file(char *file) {
-	char *str; FILE *fh = fopen(file, "r"); fseek(fh, 0L, SEEK_END); long l = ftell(fh); str = malloc(l + 1), rewind(fh); fread(str, l, 1, fh); return (str);
+	char *str; FILE *fh = fopen(file, "r"); fseek(fh, 0L, SEEK_END); long l = ftell(fh); str = calloc(l + 1, 1), rewind(fh); fread(str, l, 1, fh); return (str);
 }
 
 //Compare function to be used with psort and qsort
@@ -99,7 +99,7 @@ bool	unique_int(int num) {
 	int set[10] = { 0 }; int temp; while (num != 0) { temp = num % 10; temp = (temp < 0 ? -1 * temp : temp); set[temp]++; if (set[temp] >= 2) break ; num /= 10; } return ((set[temp] <= 1) ? true : false);
 }
 
-# define SWAP(first, second, type) type __LINE__##__FILE__##_temp = first; first = second; second = __LINE__##__FILE__##_temp;
+# define SWAP(first, second, type) { type __LINE__##__FILE__##_temp = first; first = second; second = __LINE__##__FILE__##_temp; }
 
 // The below is a macro so that the variable itself can be dereferenced.
 // If it were a function, one would have to pass sizeof(*var) and sizeof(**var)
@@ -145,10 +145,7 @@ void	*strsplit_alloc(t_alloc_meta *alloc_info, size_t count __attribute__((unuse
 		str_s[-1] = '\0';
 	}
 
-	str_e = strpbrk(str_s, alloc_info->e_delim);
-	str_e[0] = '\0';
-
-	*(alloc_info->iter_addr) = str_e + 1;
+	strsep((char **)alloc_info->iter_addr, alloc_info->e_delim);
 	(*alloc_info->index)++;
 	return (str_s);}
 

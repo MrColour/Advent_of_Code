@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 15:08:21 by home              #+#    #+#             */
-/*   Updated: 2020/09/04 17:45:48 by home             ###   ########.fr       */
+/*   Updated: 2020/09/28 20:32:27 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,12 @@ bool	two_pairs(char *pass)
 {
 	int		i;
 	int		pair;
-	char	hash[250];
+	char	hash[250] = { 0 };
 	bool	result;
 
 	i = 0;
 	pair = 0;
 	result = false;
-	bzero(hash, sizeof(hash));
 	while (pass[i + 1] != '\0' && pair < 2)
 	{
 		if (hash[(int)pass[i]] == 0 && pass[i] == pass[i + 1])

@@ -6,14 +6,11 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 18:17:22 by home              #+#    #+#             */
-/*   Updated: 2020/09/10 19:33:35 by home             ###   ########.fr       */
+/*   Updated: 2020/09/28 20:09:10 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <limits.h>
-#include <stdbool.h>
-#include <stdlib.h>
+#include "../aoc++.h"
 
 int		calc_dis(int *visit_order, int size, int seek)
 {
@@ -35,11 +32,7 @@ int		calc_dis(int *visit_order, int size, int seek)
 	}
 
 	if (from > to)
-	{
-		i = from;
-		from = to;
-		to = i;
-	}
+		SWAP(from, to, int)
 
 	result = 0;
 	result = ((from == 1 && to == 2) ? 66 : result);
@@ -85,15 +78,11 @@ void	depth_first_permute(int visited, int limit, bool *visited_list, int *visit_
 	int		i;
 	int		new_dis;
 
-	if (visited == limit)
+	if (visited == limit || curr_dis > *min_dis)
 	{
-		if (curr_dis < *min_dis)
-			*min_dis = curr_dis;
-		return ; // Possible route, and update to min_dis.
+		*min_dis = MIN(curr_dis, *min_dis);
+		return ; // Possible route, and update to min_dis or branch cannot contain shortest possible route.
 	}
-
-	if (curr_dis > *min_dis)
-		return ; // Branch(es) cannot contain shortest possible route.
 
 	i = 0;
 	while (i < limit)

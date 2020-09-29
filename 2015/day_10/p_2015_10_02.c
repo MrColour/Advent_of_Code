@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 14:37:24 by home              #+#    #+#             */
-/*   Updated: 2020/09/04 15:50:53 by home             ###   ########.fr       */
+/*   Updated: 2020/09/28 20:24:03 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	main(void)
 	i = 0;
 	next = NULL;
 	input = strdup("1113122113");
-	while (i < 40)
+	while (i < 50)
 	{
 		next = next_sequence(input);
 		// printf("[%s]\n", next);

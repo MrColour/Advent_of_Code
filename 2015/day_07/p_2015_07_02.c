@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 01:29:09 by home              #+#    #+#             */
-/*   Updated: 2020/09/28 18:01:46 by home             ###   ########.fr       */
+/*   Updated: 2020/09/28 19:58:37 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,6 @@ int		main(void)
 
 	result = fetch_signal("a", wires, memo_table);
 	// printf("RESULT: %d\n", result);
-
 	bzero(memo_table, sizeof(*memo_table) * size);
 
 	i = 0;
