@@ -6,41 +6,11 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 05:19:02 by home              #+#    #+#             */
-/*   Updated: 2020/09/10 07:55:29 by home             ###   ########.fr       */
+/*   Updated: 2020/09/28 22:46:23 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-
-#include <string.h>
-#include <stdbool.h>
-
-#define BUFF_SIZE (1024)
-
-char	*extract_file(char *file_name)
-{
-	int		fd;
-	int		bytes_read;
-	int		size;
-	char	*result;
-
-	size = 0;
-	result = NULL;
-	fd = open(file_name, O_RDONLY);
-
-	bytes_read = 1;
-	while (bytes_read != 0)
-	{
-		result = realloc(result, size + BUFF_SIZE + 1);
-		bytes_read = read(fd, &result[size], BUFF_SIZE);
-		size += bytes_read;
-		result[size] = '\0';
-	}
-	return (result);
-}
+#include "../aoc++.h"
 
 void	depth_search(int *min, long *qe, int *packages, int p_size, int added, int remaining, long curr_qe)
 {
@@ -68,20 +38,6 @@ void	depth_search(int *min, long *qe, int *packages, int p_size, int added, int 
 	}
 }
 
-int		int_cmp(const void *ptr_a, const void *ptr_b)
-{
-	int	a;
-	int	b;
-
-	a = *(int *)ptr_a;
-	b = *(int *)ptr_b;
-
-	if (a > b)
-		return (-1);
-	else
-		return (1);
-}
-
 int		main(void)
 {
 	int		i;
@@ -93,29 +49,22 @@ int		main(void)
 
 	str_file = extract_file("input.txt");
 
-	total_weight = 0;
-	package_amount = 0;
-	s_tok = strpbrk(str_file, "1234567890-");
-	while (s_tok != NULL)
-	{
-		total_weight += atoi(s_tok);
-		s_tok += strspn(s_tok, "1234567890-");
-		s_tok = strpbrk(s_tok, "1234567890-");
-		package_amount++;
-	}
+	package_amount = count_occur("\n", str_file);
 
 	i = 0;
+	total_weight = 0;
 	s_tok = str_file;
-	packages = calloc(package_amount, sizeof(*packages));
 	strtok(s_tok, "\n");
+	packages = calloc(package_amount, sizeof(*packages));
 	while (i < package_amount)
 	{
 		packages[i] = atoi(s_tok);
+		total_weight += packages[i];
 		s_tok = strtok(NULL, "\n");
 		i++;
 	}
 
-	qsort(packages, package_amount, sizeof(*packages), int_cmp);
+	qsort(packages, package_amount, sizeof(*packages), int_cmp_des);
 
 	long	QE;
 	int		min;

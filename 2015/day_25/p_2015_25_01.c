@@ -6,41 +6,11 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 16:53:13 by home              #+#    #+#             */
-/*   Updated: 2020/09/10 08:36:07 by home             ###   ########.fr       */
+/*   Updated: 2020/09/28 22:34:34 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-
-#include <string.h>
-#include <stdbool.h>
-
-#define BUFF_SIZE (1024)
-
-char	*extract_file(char *file_name)
-{
-	int		fd;
-	int		bytes_read;
-	int		size;
-	char	*result;
-
-	size = 0;
-	result = NULL;
-	fd = open(file_name, O_RDONLY);
-
-	bytes_read = 1;
-	while (bytes_read != 0)
-	{
-		result = realloc(result, size + BUFF_SIZE + 1);
-		bytes_read = read(fd, &result[size], BUFF_SIZE);
-		size += bytes_read;
-		result[size] = '\0';
-	}
-	return (result);
-}
+#include "../aoc++.h"
 
 int		main(void)
 {
