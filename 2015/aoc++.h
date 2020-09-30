@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 00:21:00 by home              #+#    #+#             */
-/*   Updated: 2020/09/28 23:46:53 by home             ###   ########.fr       */
+/*   Updated: 2020/09/30 01:01:38 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,15 @@ int		MAX(int a, int b) {return ((a > b) ? a : b);}
 bool	bound(int l, int x, int r) {return ((l <= x && x <= r) ? true : false);}
 bool	bound_box(int l, int x, int r, int b, int y, int t) {return (((l <= x && x <= r) && (b <= y && y <= t)) ? true : false);}
 
+// Rank: * • • • •
+// left <= x <= right
+int		restrict_val(int l, int val, int u)
+{
+	if (val < l) return (l);
+	if (val > u) return (u);
+	return (val);
+}
+
 enum	e_direction
 {
 	UP =	0,
@@ -89,11 +98,10 @@ enum	e_direction
 // Keypad: UDLR in this order.
 void	direction(char *dir_pad, char key,int *x, int *y)
 {
-	if		(dir_pad[UP  ] == key) (*y)++;
-	else if (dir_pad[DOWN] == key) (*y)--;
-	else if (dir_pad[LEFT] == key) (*x)--;
-	else						   (*x)++;
-
+	if		(dir_pad[UP  ] == key)	(*y)++;
+	else if (dir_pad[DOWN] == key)	(*y)--;
+	else if (dir_pad[LEFT] == key)	(*x)--;
+	else if (dir_pad[RIGHT] == key) (*x)++;
 }
 
 // Rank: • • • • •
@@ -102,12 +110,11 @@ bool	unique_int(int num) {
 }
 
 //Rank: * * * • •
-//Creates a temp variable of type <type> with a unique name, given by
-//a tokenization of __LINE__ and __FILE__. Uses this temp variable to
-//swap, on the STACK, the information of first and second.
+// Creates a temp variable of type <type> with a unique name, given by
+// a tokenization of __LINE__ and __FILE__. Uses this temp variable to
+// swap, on the STACK, the information of first and second.
+// Warning: need to double check on the temp name, to ensure it is unique, but so far it passes test.
 # define SWAP(first, second, type) { type __LINE__##__FILE__##_temp = first; first = second; second = __LINE__##__FILE__##_temp; }
-
-
 
 // The below is a macro so that the variable itself can be dereferenced.
 // If it were a function, one would have to pass sizeof(*var) and sizeof(**var)
@@ -152,13 +159,19 @@ void	*strsplit_alloc(t_alloc_meta *alloc_info, size_t count __attribute__((unuse
 
 	if (alloc_info->s_delim == NULL) { str_s = *(char **)alloc_info->iter_addr; }
 	else {
-		str_s = strpbrk(*(alloc_info->iter_addr), alloc_info->s_delim) + 1;
-		str_s[-1] = '\0';
+		str_s = NULL;
+		if (*(alloc_info->iter_addr) != NULL)
+			str_s = strpbrk(*(alloc_info->iter_addr), alloc_info->s_delim);
+		if (str_s != NULL) { str_s[0] = '\0'; str_s++; *alloc_info->iter_addr = str_s;}
 	}
 
-	strsep((char **)alloc_info->iter_addr, alloc_info->e_delim);
-	(*alloc_info->index)++;
-	return (str_s);}
+	if (*alloc_info->iter_addr != NULL)
+	{
+		strsep((char **)alloc_info->iter_addr, alloc_info->e_delim);
+		(*alloc_info->index)++;
+	}
+	return (str_s);
+}
 
 // Variables that a macro has to make need to become global so that
 // macros may re-use the same symbol name. It may be possible to

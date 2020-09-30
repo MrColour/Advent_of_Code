@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 02:03:54 by home              #+#    #+#             */
-/*   Updated: 2020/09/27 23:36:52 by home             ###   ########.fr       */
+/*   Updated: 2020/09/30 00:57:43 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,18 +83,6 @@ int		main(void)
 	int		i_ptr;
 
 	str_file = extract_file("input.txt");
-
-	// char	*s_tok;
-	// i_ptr = 0;
-	// len = count_occur("\n", str_file);
-	// instr = calloc(len, sizeof(*instr));
-	// s_tok = strtok(str_file, "\n");
-	// while (s_tok != NULL)
-	// {
-	// 	instr[i_ptr] = s_tok;
-	// 	s_tok = strtok(NULL, "\n");
-	// 	i_ptr++;
-	// }
 
 	NEWLINE_SPLIT(instr, str_file, len)
 

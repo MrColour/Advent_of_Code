@@ -6,22 +6,13 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 20:55:48 by home              #+#    #+#             */
-/*   Updated: 2020/09/25 19:54:43 by home             ###   ########.fr       */
+/*   Updated: 2020/09/29 23:23:16 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../aoc++.h"
 
 #include "md5.h"
-
-// typedef struct	s_hash
-// {
-// 	int				index;
-// 	int				type;
-// 	char			which;
-
-// 	struct s_hash	*next;
-// }				t_hash;
 
 typedef struct	s_hash
 {
@@ -85,13 +76,10 @@ void	hash_2016(unsigned char *start)
 	memcpy(hash_byte, start, 33);
 	while (i < 2016)
 	{
-
 		MD5_Init(&cxt);
 		MD5_Update(&cxt, hash_byte, 32);
 		MD5_Final(hash, &cxt);
 		hash_to_str(hash, hash_byte);
-
-		// printf("HASH: %s\n", hash_byte);
 
 		i++;
 	}
@@ -132,10 +120,7 @@ bool	next_1000_check(unsigned char *try, int index, char *salt, t_hash *sliding_
 		}
 
 		if (has_n_kind(hash_byte, 5) == type)
-		{
-			printf("TRY: %d at %d %s\n5: %s\n", i, index, try, hash_byte);
 			found = true;
-		}
 
 		i++;
 	}
@@ -159,7 +144,6 @@ int		main(void)
 	i = 0;
 	key_pad_count = 0;
 	salt = strdup("qzyelonm");
-	// salt = strdup("abc");
 	while (key_pad_count < 64)
 	{
 		if (sliding_window[i % 1000].index == 1 && sliding_window[i % 1000].found == 1)
@@ -178,16 +162,12 @@ int		main(void)
 			memcpy(sliding_window[i % 1000].hash_byte, hash_byte, sizeof(hash_byte));
 		}
 
-		printf("I %4i: %s \n", i, hash_byte);
-
 		if (has_n_kind(hash_byte, 3) != 0)
 		{
 			if (next_1000_check(hash_byte, i, salt, sliding_window))
 				key_pad_count++;
 		}
 		i++;
-
-		// free(input);
 	}
 	printf("RESULT: %d\n", i - 1);
 	return (0);

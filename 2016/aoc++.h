@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 00:21:00 by home              #+#    #+#             */
-/*   Updated: 2020/09/29 17:55:08 by home             ###   ########.fr       */
+/*   Updated: 2020/09/30 00:43:09 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,15 @@ int		MAX(int a, int b) {return ((a > b) ? a : b);}
 
 // Rank: * * • • •
 // left <= x <= right
-bool	bound(int l, int x, int r) {return ((l < x && x < r) ? true : false);}
+bool	bound(int l, int x, int r) {return ((l <= x && x <= r) ? true : false);}
 bool	bound_box(int l, int x, int r, int b, int y, int t) {return (((l <= x && x <= r) && (b <= y && y <= t)) ? true : false);}
 
 // Rank: * • • • •
 // left <= x <= right
 int		restrict_val(int l, int val, int u)
 {
-	if (val < l)
-		return (l);
-	if (val > u)
-		return (u);
+	if (val < l) return (l);
+	if (val > u) return (u);
 	return (val);
 }
 
@@ -112,12 +110,11 @@ bool	unique_int(int num) {
 }
 
 //Rank: * * * • •
-//Creates a temp variable of type <type> with a unique name, given by
-//a tokenization of __LINE__ and __FILE__. Uses this temp variable to
-//swap, on the STACK, the information of first and second.
+// Creates a temp variable of type <type> with a unique name, given by
+// a tokenization of __LINE__ and __FILE__. Uses this temp variable to
+// swap, on the STACK, the information of first and second.
+// Warning: need to double check on the temp name, to ensure it is unique, but so far it passes test.
 # define SWAP(first, second, type) { type __LINE__##__FILE__##_temp = first; first = second; second = __LINE__##__FILE__##_temp; }
-
-
 
 // The below is a macro so that the variable itself can be dereferenced.
 // If it were a function, one would have to pass sizeof(*var) and sizeof(**var)

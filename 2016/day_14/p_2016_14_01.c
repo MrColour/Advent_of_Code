@@ -6,22 +6,13 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 20:55:48 by home              #+#    #+#             */
-/*   Updated: 2020/09/21 21:13:02 by home             ###   ########.fr       */
+/*   Updated: 2020/09/29 23:20:00 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../aoc++.h"
 
 #include "md5.h"
-
-// typedef struct	s_hash
-// {
-// 	int				index;
-// 	int				type;
-// 	char			which;
-
-// 	struct s_hash	*next;
-// }				t_hash;
 
 char	has_n_kind(unsigned char *hash, int n)
 {
@@ -54,7 +45,6 @@ char	has_n_kind(unsigned char *hash, int n)
 		return (0);
 }
 
-// if (next_1000_check(hash, memo, &i, &max_i))
 bool	next_1000_check(unsigned char *try, int index, char *salt)
 {
 	int		i;
@@ -96,16 +86,15 @@ int		main(void)
 	int			max_i;
 	int			key_pad_count;
 
-	char				*salt;
-	char				*input;
-	MD5_CTX				cxt;
-	unsigned char		hash[16 + 1] = { 0 };
-	unsigned char		hash_byte[16 * 2 + 1] = { 0 };
+	char			*salt;
+	char			*input;
+	MD5_CTX			cxt;
+	unsigned char	hash[16 + 1] = { 0 };
+	unsigned char	hash_byte[16 * 2 + 1] = { 0 };
 
 	i = 0;
 	key_pad_count = 0;
 	salt = strdup("qzyelonm");
-	// salt = strdup("abc");
 	while (key_pad_count < 64)
 	{
 		asprintf(&input, "%s%d", salt, i);
@@ -115,8 +104,6 @@ int		main(void)
 		MD5_Final(hash, &cxt);
 
 		hash_to_str(hash, hash_byte);
-
-		// printf("I %4i: %s \n", i, hash_byte);
 
 		if (has_n_kind(hash_byte, 3) != 0)
 		{

@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 01:07:01 by home              #+#    #+#             */
-/*   Updated: 2020/09/22 02:01:25 by home             ###   ########.fr       */
+/*   Updated: 2020/09/30 00:47:59 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,17 @@ int		main(void)
 
 	prev = extract_file("input.txt");
 	strchr(prev, '\n')[0] = '\0';
-
-	curr = calloc(strlen(prev), sizeof(*curr));
-
-	safe_tiles = 0;
-	safe_tiles += count_occur(".", prev);
+	curr = strdup(prev);
 
 	row = 1;
+	safe_tiles = count_occur(".", prev);
 	while (row < 400000)
 	{
 		new_row(curr, prev);
 
 		safe_tiles += count_occur(".", curr);
 
-		swap = curr;
-		curr = prev;
-		prev = swap;
+		SWAP(prev, curr, char *)
 		row++;
 	}
 	printf("RESULT: %d\n", safe_tiles);

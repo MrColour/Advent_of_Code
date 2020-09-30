@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 22:20:43 by home              #+#    #+#             */
-/*   Updated: 2020/09/18 01:14:30 by home             ###   ########.fr       */
+/*   Updated: 2020/09/29 23:09:35 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	give_bot(t_bot *bot, int value)
 	}
 	else if (bot->given == 1 && value != bot->temp)
 	{
-		bot->low = min(value, bot->temp);
-		bot->hi = max(value, bot->temp);
+		bot->low = MIN(value, bot->temp);
+		bot->hi = MAX(value, bot->temp);
 		bot->given = 2;
 	}
 }

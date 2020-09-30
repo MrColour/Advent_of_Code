@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 01:49:56 by home              #+#    #+#             */
-/*   Updated: 2020/09/27 23:21:00 by home             ###   ########.fr       */
+/*   Updated: 2020/09/29 23:13:17 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,26 +55,6 @@ int		main(void)
 	int		i_ptr;
 
 	str_file = extract_file("input.txt");
-
-	// char	*s_tok;
-	// len = count_occur("\n", str_file);
-	// i_ptr = 0;
-	// s_tok = strtok(str_file, "\n");
-	// instr = calloc(len, sizeof(*instr));
-	// while (s_tok != NULL)
-	// {
-	// 	instr[i_ptr] = s_tok;
-	// 	s_tok = strtok(NULL, "\n");
-	// 	i_ptr++;
-	// }
-
-	// char	*s_tok;
-	// len = count_occur("\n", str_file);
-	// s_tok = strtok(str_file, "\n");
-
-	// g_ameta.s_delim = "\n";
-	// g_ameta.iter_addr = (void **)(&s_tok);
-	// ALLOC_2D(instr, len, 0, strtok_alloc, &g_ameta);
 
 	NEWLINE_SPLIT(instr, str_file, len)
 

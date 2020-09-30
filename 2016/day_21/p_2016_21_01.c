@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 23:23:03 by home              #+#    #+#             */
-/*   Updated: 2020/09/28 03:51:52 by home             ###   ########.fr       */
+/*   Updated: 2020/09/30 00:56:30 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,6 @@ char		*rotate_op(char *instr, char *string)
 	{
 		memmove(&string[0], &buff[x], len - x);
 		memmove(&string[len - x], &buff[0], x);
-		// x = len - x;
-		// memmove(&string[0], &buff[x], len - x);
-		// memmove(&string[len - x], &buff[0], x);
 	}
 	return (string);
 }
@@ -179,7 +176,6 @@ char		*move_op(char *instr, char *string)
 	return (string);
 }
 
-
 t_command	commands[] =
 {
 	{"swap position",		swap_position_op},
@@ -200,9 +196,7 @@ char	*do_op(char *instr, char *string)
 	{
 		if (strncmp(instr, commands[i].command, strlen(commands[i].command)) == 0)
 		{
-			// printf("INS: %s\n", instr);
 			commands[i].func(instr, string);
-			// printf("STR: %s\n", string);
 			break ;
 		}
 		i++;
@@ -220,31 +214,15 @@ int		main(void)
 	start = strdup("abcdefgh");
 	str_file = extract_file("input.txt");
 
-	int		i;
-
-	// char	*s_tok;
-
-	// i = 0;
-	// newlines = count_occur("\n", str_file);
-	// instr = calloc(newlines, sizeof(*instr));
-	// s_tok = strtok(str_file, "\n");
-	// while (s_tok != NULL)
-	// {
-	// 	instr[i] = s_tok;
-	// 	s_tok = strtok(NULL, "\n");
-	// 	// printf("%s\n", instr[i]);
-	// 	i++;
-	// }
-
 	NEWLINE_SPLIT(instr, str_file, newlines);
 
+	int		i;
 	char *string;
 
 	i = 0;
 	string = start;
 	while (i < newlines)
 	{
-		// printf("AT: %d ", i);
 		string = do_op(instr[i], string);
 		i++;
 	}

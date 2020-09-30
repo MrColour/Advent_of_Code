@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 23:02:31 by home              #+#    #+#             */
-/*   Updated: 2020/09/27 02:20:00 by home             ###   ########.fr       */
+/*   Updated: 2020/09/30 00:51:19 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,8 @@ int		main(void)
 	char	**split;
 
 	str_file = extract_file("input.txt");
-	newlines = count_occur("\n", str_file);
 
-	i = 0;
-	s_tok = strtok(str_file, "\n");
-	split = calloc(newlines, sizeof(*split));
-	while (s_tok != NULL)
-	{
-		split[i] = s_tok;
-		s_tok = strtok(NULL, "\n");
-		i++;
-	}
+	NEWLINE_SPLIT(split, str_file, newlines)
 
 	psort(split, newlines, sizeof(*split), ip_cmp);
 

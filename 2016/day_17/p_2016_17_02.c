@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 20:39:05 by home              #+#    #+#             */
-/*   Updated: 2020/09/21 22:22:39 by home             ###   ########.fr       */
+/*   Updated: 2020/09/30 00:22:31 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,7 @@ void	add_node(char dir, t_queue_elem *last, t_queue_elem *from)
 	asprintf(&(new_elem->curr_path), "%s%c", from->curr_path, dir);
 	new_elem->next = NULL;
 
-	if (dir == 'D')
-		new_elem->y++;
-	else if (dir == 'U')
-		new_elem->y--;
-	else if (dir == 'L')
-		new_elem->x--;
-	else
-		new_elem->x++;
+	direction("DULR", dir, &(new_elem->x), &(new_elem->y));
 
 	if (bound(0, new_elem->x, 3) && bound(0, new_elem->y, 3))
 		last->next = new_elem;

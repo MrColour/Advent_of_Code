@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 23:23:03 by home              #+#    #+#             */
-/*   Updated: 2020/09/28 03:53:25 by home             ###   ########.fr       */
+/*   Updated: 2020/09/30 00:56:24 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,6 @@ char		*rotate_b_op_r(char *instr, char *string)
 	rotate_amount %= len;
 	buff = strdup(string);
 
-	// memmove(&string[rotate_amount], &buff[0], len - rotate_amount);
-	// memmove(&string[0], &buff[len - rotate_amount], rotate_amount);
-
 	memmove(&string[0], &buff[rotate_amount], len - rotate_amount);
 	memmove(&string[len - rotate_amount], &buff[0], rotate_amount);
 
@@ -126,9 +123,6 @@ char		*rotate_op_r(char *instr, char *string)
 	{
 		memmove(&string[0], &buff[x], len - x);
 		memmove(&string[len - x], &buff[0], x);
-		// x = len - x;
-		// memmove(&string[0], &buff[x], len - x);
-		// memmove(&string[len - x], &buff[0], x);
 	}
 	return (string);
 }
@@ -191,7 +185,6 @@ char		*move_op_r(char *instr, char *string)
 	return (string);
 }
 
-
 t_command	commands[] =
 {
 	{"swap position",		swap_position_op_r},
@@ -225,26 +218,15 @@ int		main(void)
 	int		newlines;
 	char	*str_file;
 	char	*start;
-	char	*s_tok;
 	char	**instr;
 
 	start = strdup("fbgdceah");
 	str_file = extract_file("input.txt");
-	newlines = count_occur("\n", str_file);
-	instr = calloc(newlines, sizeof(*instr));
+
+	NEWLINE_SPLIT(instr, str_file, newlines);
 
 	int		i;
-
-	i = 0;
-	s_tok = strtok(str_file, "\n");
-	while (s_tok != NULL)
-	{
-		instr[i] = s_tok;
-		s_tok = strtok(NULL, "\n");
-		i++;
-	}
-
-	char *string;
+	char	*string;
 
 	i = newlines - 1;
 	string = start;
