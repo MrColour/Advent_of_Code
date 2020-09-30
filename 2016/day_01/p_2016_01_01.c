@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 16:19:56 by home              #+#    #+#             */
-/*   Updated: 2020/09/14 19:33:09 by home             ###   ########.fr       */
+/*   Updated: 2020/09/29 17:00:58 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ int		main(void)
 	int		steps;
 
 	str_file = extract_file("input.txt");
-	s_tok = strtok(str_file, " ");
 
-	dir = 0;
 	x = 0;
 	y = 0;
+	dir = 0;
+	s_tok = strtok(str_file, " ");
 	while (s_tok != NULL)
 	{
 		steps = atoi(&(s_tok[1]));
@@ -36,11 +36,7 @@ int		main(void)
 		else
 			dir--;
 
-		if (dir == -1)
-			dir = 3;
-
-		if (dir == 4)
-			dir = 0;
+		dir = (dir + 4) % 4;
 
 		if (dir == 0)
 			y += steps;

@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 22:09:21 by home              #+#    #+#             */
-/*   Updated: 2020/09/14 22:23:33 by home             ###   ########.fr       */
+/*   Updated: 2020/09/29 17:15:54 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,11 @@ void	process_line(int *row, int *col, char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == 'U')
-			(*row)--;
-		else if (str[i] == 'D')
-			(*row)++;
-		else if (str[i] == 'R')
-			(*col)++;
-		else if (str[i] == 'L')
-			(*col)--;
+		direction("DULR", str[i], col, row);
 
-		if (*row == -1)
-			*row = 0;
-		if (*row == 3)
-			*row = 2;
+		*row = restrict_val(0, *row, 2);
+		*col = restrict_val(0, *col, 2);
 
-		if (*col == -1)
-			*col = 0;
-		if (*col == 3)
-			*col = 2;
 		i++;
 	}
 }
@@ -45,20 +32,19 @@ int		main(void)
 {
 	int		row;
 	int		col;
-	char	*s_tok;
 	char	*str_file;
 
 	str_file = extract_file("input.txt");
 
 	row = 1;
 	col = 1;
-	s_tok = strtok(str_file, "\n");
-	while (s_tok != NULL)
+	printf("RESULT: ");
+	str_file = strtok(str_file, "\n");
+	while (str_file != NULL)
 	{
-		process_line(&row, &col, s_tok);
-		// printf("LINE: %s\n", s_tok);
+		process_line(&row, &col, str_file);
 		printf("%d", row * 3 + (col + 1));
-		s_tok = strtok(NULL, "\n");
+		str_file = strtok(NULL, "\n");
 	}
 	printf("\n");
 	return (0);

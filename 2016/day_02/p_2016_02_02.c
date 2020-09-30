@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 22:24:33 by home              #+#    #+#             */
-/*   Updated: 2020/09/14 22:40:07 by home             ###   ########.fr       */
+/*   Updated: 2020/09/29 17:56:14 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ enum	valid
 
 void	process_line(int *row, int *col, char *str, int **mask)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (str[i] != '\0')
@@ -55,12 +55,7 @@ int		main(void)
 	row = 2;
 	col = 0;
 
-	mask = calloc(5, sizeof(*mask));
-	mask[0] = calloc(5, sizeof(**mask));
-	mask[1] = calloc(5, sizeof(**mask));
-	mask[2] = calloc(5, sizeof(**mask));
-	mask[3] = calloc(5, sizeof(**mask));
-	mask[4] = calloc(5, sizeof(**mask));
+	ALLOC_2D(mask, 5, 5, calloc_wrapper, NULL)
 
 	mask[0][2] = D;
 
@@ -84,18 +79,9 @@ int		main(void)
 	while (s_tok != NULL)
 	{
 		process_line(&row, &col, s_tok, mask);
-		// printf("LINE: %s\n", s_tok);
 		printf("%d ", row * 5 + (col + 1));
 		s_tok = strtok(NULL, "\n");
 	}
 	printf("\n");
 	return (0);
 }
-
-//1
-//6
-//11
-//16
-//21
-
-//26B96

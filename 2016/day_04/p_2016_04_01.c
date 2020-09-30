@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 23:08:00 by home              #+#    #+#             */
-/*   Updated: 2020/09/15 22:25:55 by home             ###   ########.fr       */
+/*   Updated: 2020/09/29 18:09:16 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,6 @@ int		main(void)
 
 		s_tok = strtok(NULL, "\n");
 	}
-
-	// decoy = is_str_decoy("totally-real-room", "decoy");
-	// if (decoy == false)
-	// 	printf("Not a decoy\n");
-	// else
-	// 	printf("IS decoy\n");
 
 	printf("RESULT: %d\n", result);
 	return (0);

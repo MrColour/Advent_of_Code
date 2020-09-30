@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 19:35:28 by home              #+#    #+#             */
-/*   Updated: 2020/09/28 03:40:49 by home             ###   ########.fr       */
+/*   Updated: 2020/09/29 01:03:06 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int		main(void)
 	dir = 0;
 	locations = count_occur(" ", str_file);
 	s_tok = strtok(str_file, " ");
-	visit = calloc(locations + 1, sizeof(*visit));
+	visit = calloc(locations + 2, sizeof(*visit)); //First/last term and zero start
 	visit[0].p_x = 0;
 	visit[0].p_y = 0;
 	while (s_tok != NULL)
@@ -112,13 +112,7 @@ int		main(void)
 		else
 			dir--;
 
-
-		if (dir == -1)
-			dir = 3;
-
-		if (dir == 4)
-			dir = 0;
-
+		dir = (dir + 4) % 4;
 
 		if (dir == 0)
 			y += steps;
