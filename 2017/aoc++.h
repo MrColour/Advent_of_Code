@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 00:21:00 by home              #+#    #+#             */
-/*   Updated: 2020/09/30 01:37:32 by home             ###   ########.fr       */
+/*   Updated: 2020/10/01 01:38:41 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ char	*extract_file(char *file) {
 int		int_cmp_asc(const void *a, const void *b) {return ((*(int *)a) < (*(int *)b) ? -1 : 1);}
 int		int_cmp_des(const void *a, const void *b) {return ((*(int *)a) > (*(int *)b) ? -1 : 1);}
 int		str_cmp(const void *a, const void *b) {return ( strcmp((*(char **)a) , (*(char **)b) ));}
+int		char_cmp_asc(const void *a, const void *b) { return ((*(char *)a > *(char *)b) ? 1 : -1); }
+int		char_cmp_des(const void *a, const void *b) { return ((*(char *)a < *(char *)b) ? 1 : -1); }
 
 //String utility functions
 
@@ -200,7 +202,7 @@ int		_internal__alloc_index;
 # define STR_SPLIT(dst, src, s_lim, e_lim, len)						\
 	_internal__src_cpy = src;										\
 	_internal__alloc_index = 0;										\
-	len = count_occur(e_lim, _internal__src_cpy);					\
+	len = count_occur(e_lim, _internal__src_cpy) + 1;				\
 																	\
 	g_ameta.iter_addr = (void **)(&_internal__src_cpy);				\
 	g_ameta.index = &_internal__alloc_index;						\
