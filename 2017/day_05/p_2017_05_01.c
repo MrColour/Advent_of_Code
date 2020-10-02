@@ -6,25 +6,11 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 01:43:20 by home              #+#    #+#             */
-/*   Updated: 2020/10/01 02:14:49 by home             ###   ########.fr       */
+/*   Updated: 2020/10/01 16:45:19 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../aoc++.h"
-
-void	*newline_atoi_alloc(t_alloc_meta *alloc_info, size_t count __attribute__((unused)), size_t elem_size __attribute__((unused)))
-{
-	char	*s_tok;
-	int		*num;
-
-	num = malloc(sizeof(num));
-	s_tok = *(char **)(alloc_info->iter_addr);
-	*num = atoi(s_tok);
-
-	*alloc_info->index += *num;
-	*(alloc_info->iter_addr) = strtok(NULL, alloc_info->e_delim);
-	return (num);
-}
 
 int		main(void)
 {
@@ -40,7 +26,6 @@ int		main(void)
 	str_file = strtok(str_file, "\n");
 	while (str_file != NULL)
 	{
-		// printf("%s\n", str_file);
 		fetch_int(str_file, &jumps[len]);
 		str_file = strtok(NULL, "\n");
 		len++;
