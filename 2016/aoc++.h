@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 00:21:00 by home              #+#    #+#             */
-/*   Updated: 2020/09/30 00:43:09 by home             ###   ########.fr       */
+/*   Updated: 2020/10/02 21:20:35 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 #include <string.h> //strchr, strcmp, strlen, strncmp, strpbrk, strrchr, strspn,
 //					strstr, strtok, strdup, memset_pattern(4, 8, 16), strnstr
 //					strsep, strcspn, memset, memmem
-#include <unistd.h> //close, read, write, mkstemp, lseek, rewind
 
 #include <stdbool.h> //bool
 

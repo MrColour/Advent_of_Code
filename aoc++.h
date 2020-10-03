@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 00:21:00 by home              #+#    #+#             */
-/*   Updated: 2020/09/30 01:01:30 by home             ###   ########.fr       */
+/*   Updated: 2020/10/02 21:20:42 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@
 #include <string.h> //strchr, strcmp, strlen, strncmp, strpbrk, strrchr, strspn,
 //					strstr, strtok, strdup, memset_pattern(4, 8, 16), strnstr
 //					strsep, strcspn, memset, memmem
-#include <unistd.h> //close, read, write, mkstemp, lseek, rewind
 
 #include <stdbool.h> //bool
 
 #include <limits.h> //INT_MIN, INT_MAX
 
 #include <assert.h> //assert
+
+#include <alloca.h> //alloca
 
 #include <math.h>
 
@@ -79,12 +80,7 @@ bool	bound_box(int l, int x, int r, int b, int y, int t) {return (((l <= x && x 
 
 // Rank: * • • • •
 // left <= x <= right
-int		restrict_val(int l, int val, int u)
-{
-	if (val < l) return (l);
-	if (val > u) return (u);
-	return (val);
-}
+int		restrict_val(int l, int val, int u) { if (val < l) return (l); if (val > u) return (u); return (val); }
 
 enum	e_direction
 {

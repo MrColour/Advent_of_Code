@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 00:21:00 by home              #+#    #+#             */
-/*   Updated: 2020/10/01 01:38:41 by home             ###   ########.fr       */
+/*   Updated: 2020/10/01 22:50:53 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,11 @@
 
 #include <stdlib.h> //atoi, bsearch, calloc, malloc, qsort, realloc, system, psort
 
-#include <stdio.h> //fopen, printf (and family), open_memstream
+#include <stdio.h> //fopen, printf (and family), open_memstream. rewind
 
 #include <string.h> //strchr, strcmp, strlen, strncmp, strpbrk, strrchr, strspn,
 //					strstr, strtok, strdup, memset_pattern(4, 8, 16), strnstr
 //					strsep, strcspn, memset, memmem
-#include <unistd.h> //close, read, write, mkstemp, lseek, rewind
 
 #include <stdbool.h> //bool
 
@@ -56,6 +55,7 @@ int		char_cmp_des(const void *a, const void *b) { return ((*(char *)a < *(char *
 
 #define DIGITS "0123456789-"
 #define HEX "0123456789abcdef"
+#define LOW_ALPHA "abcdefghijklmnopqrstuvwxyz"
 
 // Rank: * * * * *
 int		count_occur(char *key, char *src) {int occur = 0; int l = strlen(key); while ((src = strstr(src, key)) != NULL) {occur++; src += l;} return (occur);}
