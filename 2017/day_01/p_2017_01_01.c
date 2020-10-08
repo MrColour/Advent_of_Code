@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 22:12:20 by home              #+#    #+#             */
-/*   Updated: 2020/09/30 22:50:46 by home             ###   ########.fr       */
+/*   Updated: 2020/10/08 03:39:17 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,19 @@
 int		main(void)
 {
 	int		i;
-	int		j;
 	int		sum;
 	char	*str_file;
-	char	prev;
 
 	i = 0;
 	sum = 0;
-	prev = '\0';
 	str_file = extract_file("input.txt");
-	while (str_file[i] != '\n')
+	strchr(str_file, '\n')[0] = str_file[0];
+	while (str_file[i + 1] != '\0')
 	{
-		if (prev == str_file[i])
-			sum += (prev - '0');
-		prev = str_file[i];
+		if (str_file[i] == str_file[i + 1])
+			sum += (str_file[i] - '0');
 		i++;
 	}
-	if (prev == str_file[0])
-		sum += (prev - '0');
-
 	printf("RESULT: %d\n", sum);
 	return (0);
 }

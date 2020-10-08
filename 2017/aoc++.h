@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 00:21:00 by home              #+#    #+#             */
-/*   Updated: 2020/10/01 22:50:53 by home             ###   ########.fr       */
+/*   Updated: 2020/10/05 18:55:08 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,19 @@
 
 //File functions
 // Rank: * * * * *
-char	*extract_file(char *file) {
+// char	*extract_file(char *file);
+static inline char	*extract_file(char *file) {
 	char *str; FILE *fh = fopen(file, "r"); fseek(fh, 0L, SEEK_END); long l = ftell(fh); str = calloc(l + 1, 1), rewind(fh); fread(str, l, 1, fh); return (str);
 }
 
 //Compare function to be used with psort and qsort
 
 // Rank: * * * • •
-int		int_cmp_asc(const void *a, const void *b) {return ((*(int *)a) < (*(int *)b) ? -1 : 1);}
-int		int_cmp_des(const void *a, const void *b) {return ((*(int *)a) > (*(int *)b) ? -1 : 1);}
-int		str_cmp(const void *a, const void *b) {return ( strcmp((*(char **)a) , (*(char **)b) ));}
-int		char_cmp_asc(const void *a, const void *b) { return ((*(char *)a > *(char *)b) ? 1 : -1); }
-int		char_cmp_des(const void *a, const void *b) { return ((*(char *)a < *(char *)b) ? 1 : -1); }
+static inline int	int_cmp_asc(const void *a, const void *b) {return ((*(int *)a) < (*(int *)b) ? -1 : 1);}
+static inline int	int_cmp_des(const void *a, const void *b) {return ((*(int *)a) > (*(int *)b) ? -1 : 1);}
+static inline int	str_cmp(const void *a, const void *b) {return ( strcmp((*(char **)a) , (*(char **)b) ));}
+static inline int	char_cmp_asc(const void *a, const void *b) { return ((*(char *)a > *(char *)b) ? 1 : -1); }
+static inline int	char_cmp_des(const void *a, const void *b) { return ((*(char *)a < *(char *)b) ? 1 : -1); }
 
 //String utility functions
 
@@ -58,32 +59,32 @@ int		char_cmp_des(const void *a, const void *b) { return ((*(char *)a < *(char *
 #define LOW_ALPHA "abcdefghijklmnopqrstuvwxyz"
 
 // Rank: * * * * *
-int		count_occur(char *key, char *src) {int occur = 0; int l = strlen(key); while ((src = strstr(src, key)) != NULL) {occur++; src += l;} return (occur);}
+static inline int	count_occur(char *key, char *src) {int occur = 0; int l = strlen(key); while ((src = strstr(src, key)) != NULL) {occur++; src += l;} return (occur);}
 // Rank: * * * * *
-int		fetch_int(char *src, int *dest) {
+static inline int	fetch_int(char *src, int *dest) {
 	char *ptr = src; ptr += strcspn(ptr, DIGITS); *dest = atoi(ptr); ptr += strspn(ptr, DIGITS); return (ptr - src);
 }
 // Rank: • • • • •
-int		skip_char(char *src, int times, char c) {
+static inline int	skip_char(char *src, int times, char c) {
 	char *ptr = src - 1; while (times > 0 && ptr != NULL) {times--; ptr = strchr(ptr + 1, c); } return (ptr - src);
 }
-int		skip_space(char *src, int times) { return (skip_char(src, times, ' '));
+static inline int	skip_space(char *src, int times) { return (skip_char(src, times, ' '));
 }
 
 //Other
 
-// Rank: * * • • •
-int		MIN(int a, int b) {return ((a < b) ? a : b);}
-int		MAX(int a, int b) {return ((a > b) ? a : b);}
+// Rank: * * * • •
+static inline int	MIN(int a, int b) {return ((a < b) ? a : b);}
+static inline int	MAX(int a, int b) {return ((a > b) ? a : b);}
 
 // Rank: * * • • •
 // left <= x <= right
-bool	bound(int l, int x, int r) {return ((l <= x && x <= r) ? true : false);}
-bool	bound_box(int l, int x, int r, int b, int y, int t) {return (((l <= x && x <= r) && (b <= y && y <= t)) ? true : false);}
+static inline bool	bound(int l, int x, int r) {return ((l <= x && x <= r) ? true : false);}
+static inline bool	bound_box(int l, int x, int r, int b, int y, int t) {return (((l <= x && x <= r) && (b <= y && y <= t)) ? true : false);}
 
 // Rank: * • • • •
 // left <= x <= right
-int		restrict_val(int l, int val, int u) { if (val < l) return (l); if (val > u) return (u); return (val); }
+static inline int	restrict_val(int l, int val, int u) { if (val < l) return (l); if (val > u) return (u); return (val); }
 
 enum	e_direction
 {
@@ -95,7 +96,7 @@ enum	e_direction
 
 // Rank: * * • • •
 // Keypad: UDLR in this order.
-void	direction(char *dir_pad, char key,int *x, int *y)
+static inline void	direction(char *dir_pad, char key,int *x, int *y)
 {
 	if		(dir_pad[UP  ] == key)	(*y)++;
 	else if (dir_pad[DOWN] == key)	(*y)--;
@@ -104,7 +105,7 @@ void	direction(char *dir_pad, char key,int *x, int *y)
 }
 
 // Rank: • • • • •
-bool	unique_int(int num) {
+static inline bool	unique_int(int num) {
 	int set[10] = { 0 }; int temp; while (num != 0) { temp = num % 10; temp = (temp < 0 ? -1 * temp : temp); set[temp]++; if (set[temp] >= 2) break ; num /= 10; } return ((set[temp] <= 1) ? true : false);
 }
 
@@ -132,7 +133,7 @@ typedef	struct	_alloc_meta
 	void		*meta;			// Meta information, used in case other information needs to be passed along
 }				t_alloc_meta;
 
-t_alloc_meta g_ameta = {
+static t_alloc_meta g_ameta = {
 	.iter_addr = NULL,
 	.index = NULL,
 
@@ -142,17 +143,17 @@ t_alloc_meta g_ameta = {
 	.meta = NULL,
 };
 
-void	*calloc_wrapper(t_alloc_meta *alloc_info __attribute__((unused)), size_t count, size_t elem_size)
+static inline void	*calloc_wrapper(t_alloc_meta *alloc_info __attribute__((unused)), size_t count, size_t elem_size)
 { return (calloc(count, elem_size)); }
 
-void	*strtok_alloc(t_alloc_meta *alloc_info, size_t count __attribute__((unused)), size_t elem_size __attribute__((unused)))
+static inline void	*strtok_alloc(t_alloc_meta *alloc_info, size_t count __attribute__((unused)), size_t elem_size __attribute__((unused)))
 {	char *s_tok;
 
 	s_tok = *(char **)(alloc_info->iter_addr);
 	*(alloc_info->iter_addr) = strtok(NULL, alloc_info->e_delim);
 	return (s_tok);}
 
-void	*strsplit_alloc(t_alloc_meta *alloc_info, size_t count __attribute__((unused)), size_t elem_size __attribute__((unused)))
+static inline void	*strsplit_alloc(t_alloc_meta *alloc_info, size_t count __attribute__((unused)), size_t elem_size __attribute__((unused)))
 {
 	char *str_s; char *str_e;
 
@@ -177,8 +178,8 @@ void	*strsplit_alloc(t_alloc_meta *alloc_info, size_t count __attribute__((unuse
 // sidestep this with the usage of __LINE__ and __FILE__ however
 // to ensure a unique symbol name.
 
-char	*_internal__src_cpy;
-int		_internal__alloc_index;
+static char	*_internal__src_cpy;
+static int		_internal__alloc_index;
 
 # define ALLOC_1D(name, row, alloc_func, alloc_data)				\
 	name = calloc(row + 1, sizeof(*name));							\
