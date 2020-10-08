@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 02:46:39 by home              #+#    #+#             */
-/*   Updated: 2020/10/08 03:03:08 by home             ###   ########.fr       */
+/*   Updated: 2020/10/08 03:15:20 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		main(void)
 	pos = OFFSET;
 	state = 'A';
 	while (step < 12425180)
-	{ //Most of this was done through text manipulation.
+	{ //Most of this was done through text manipulation, shortcuts.
 		if (state == 'A')
 		{
 			if (tape[pos] == false)
