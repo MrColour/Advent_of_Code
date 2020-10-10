@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 01:06:41 by home              #+#    #+#             */
-/*   Updated: 2020/10/01 01:30:07 by home             ###   ########.fr       */
+/*   Updated: 2020/10/09 18:30:42 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,13 @@ bool	isValid(char *passphrase)
 
 int		main(void)
 {
-	char	*str_file;
 	char	*s_tok;
 	int		result;
 
-	str_file = extract_file("input.txt");
+	s_tok = extract_file("input.txt");
 
 	result = 0;
-	s_tok = strtok(str_file, "\n");
+	s_tok = strtok(s_tok, "\n");
 	while (s_tok != NULL)
 	{
 		if (isValid(s_tok) == true)
