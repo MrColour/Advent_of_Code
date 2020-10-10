@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 16:39:45 by home              #+#    #+#             */
-/*   Updated: 2020/10/01 17:35:55 by home             ###   ########.fr       */
+/*   Updated: 2020/10/10 05:29:32 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,45 +32,37 @@ void	next_cycle(int *mem_banks, int size)
 
 	mem_banks[most_i] = 0;
 
-	most_i++;
+	i = most_i + 1;
 	while (most_v > 0)
 	{
-		most_i %= size;
+		i %= size;
 
-		mem_banks[most_i]++;
+		mem_banks[i]++;
 
-		most_i++;
 		most_v--;
-	}
-
-	i = 0;
-	while (i < size)
-	{
-		printf("%d ", mem_banks[i]);
 		i++;
 	}
-	printf("\n");
+
+	// i = 0;
+	// while (i < size)
+	// {
+	// 	printf("%d ", mem_banks[i]);
+	// 	i++;
+	// }
+	// printf("\n");
 }
 
-bool	search_past(int **past_states, int cycle, int *search, int size)
+int	not_in_past(int **past_states, int cycle, int *search, int size)
 {
 	int	i;
-	int	j;
-	bool	result;
+	int	result;
 
 	i = 0;
-	result = false;
+	result = 1;
 	while (i < cycle - 1)
 	{
-		j = 0;
-		result = true;
-		while (j < size)
-		{
-			if (past_states[i][j] != search[j])
-				result = false;
-			j++;
-		}
-		if (result == true)
+		result = memcmp(past_states[i], search, size * sizeof(*search));
+		if (result == 0)
 			break ;
 		i++;
 	}
@@ -102,19 +94,14 @@ int		main(void)
 	cycles = 0;
 	past_states = calloc(100000, sizeof(*past_states));
 	past_states[0] = mem_banks;
-	while (1)
+	while (not_in_past(past_states, cycles, past_states[cycles], size))
 	{
-		if (search_past(past_states, cycles, past_states[cycles], size) == true)
-			break ;
-
 		new_mem = calloc(size, sizeof(*new_mem));
 		memcpy(new_mem, past_states[cycles], sizeof(*new_mem) * size);
 		next_cycle(new_mem, size);
 		cycles++;
 		past_states[cycles] = new_mem;
-
 	}
-
 	printf("RESULT: %d\n", cycles);
 	return (0);
 }
