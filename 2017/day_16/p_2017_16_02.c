@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 23:09:27 by home              #+#    #+#             */
-/*   Updated: 2020/10/03 23:58:32 by home             ###   ########.fr       */
+/*   Updated: 2020/10/10 22:18:58 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ int		main(void)
 			// printf("OUT: %s\n", programs);
 			i++;
 		}
-		if (times % 5000 == 0)
-			printf("OUT: %s at %lld\n", programs, times);
 		times++;
 	}
 	printf("RESULT: %s\n", programs);

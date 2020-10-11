@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 01:26:14 by home              #+#    #+#             */
-/*   Updated: 2020/10/07 01:54:21 by home             ###   ########.fr       */
+/*   Updated: 2020/10/11 01:48:42 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,8 @@ int		main(void)
 
 	i = 0;
 	while (i < len)
-	{
 		i += do_op(instr[i], regs);
-	}
+
 	printf("RESULT: %d\n", g_debug_int);
 	return (0);
 }

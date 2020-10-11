@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 01:30:48 by home              #+#    #+#             */
-/*   Updated: 2020/10/06 02:41:56 by home             ###   ########.fr       */
+/*   Updated: 2020/10/11 00:18:42 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,7 @@ int		main(void)
 			dir = new_dir(map, col, row, dir);
 
 		if (dir == -1 || map[row][col] == ' ')
-		{
-
 			break ;
-		}
 		direction("DULR", dir, &col, &row); //inverse because of array
 		steps++;
 	}

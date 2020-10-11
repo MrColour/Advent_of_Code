@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 19:37:05 by home              #+#    #+#             */
-/*   Updated: 2020/10/05 22:21:56 by home             ###   ########.fr       */
+/*   Updated: 2020/10/10 22:28:54 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,21 @@ void	sound_card(int op, long long *value)
 	// else if (op == GET) { *value = frq; }
 }
 
+int		second_value(char *instr, long long *reg)
+{
+	char		*ptr;
+	long long	result;
+
+	ptr = instr + skip_space(instr, 2) + 1;
+	// printf("AT: [%s]\n", ptr);
+	if (isalpha(ptr[0]))
+		result = reg[ptr[0]];
+	else
+		result = atoi(ptr);
+
+	return (result);
+}
+
 /*
 s[n]d
 r[c]v
@@ -38,31 +53,16 @@ m[o]d
 j[g]z
 */
 
-int		second_value(char *instr, long long *reg)
-{
-	char		*ptr;
-	long long	result;
-
-	ptr = instr + skip_space(instr, 2) + 1;
-	printf("AT: [%s]\n", ptr);
-	if (isalpha(ptr[0]))
-		result = reg[ptr[0] - 'a'];
-	else
-		result = atoi(ptr);
-
-	return (result);
-}
-
 int		do_op(char *instr, long long *reg)
 {
 	int			jump;
 	long long	second_val;
 
 	if (instr[1] == 'n')
-		sound_card(SND, &reg[instr[4] - 'a']);
+		sound_card(SND, &reg[instr[4]]);
 	else if (instr[1] == 'c')
 	{
-		if (reg[instr[4] - 'a'] != 0)
+		if (reg[instr[4]] != 0)
 			sound_card(RCV, NULL);
 	}
 	else
@@ -70,18 +70,18 @@ int		do_op(char *instr, long long *reg)
 
 	jump = 1;
 	if (instr[1] == 'e')
-		reg[instr[4] - 'a'] = second_val;
+		reg[instr[4]] = second_val;
 	else if (instr[1] == 'd')
-		reg[instr[4] - 'a'] += second_val;
+		reg[instr[4]] += second_val;
 	else if (instr[1] == 'u')
-		reg[instr[4] - 'a'] *= second_val;
+		reg[instr[4]] *= second_val;
 	else if (instr[1] == 'o')
-		reg[instr[4] - 'a'] %= second_val;
+		reg[instr[4]] %= second_val;
 	else if (instr[1] == 'g')
 	{
 		if (isalpha(instr[4]))
 		{
-			if (reg[instr[4] - 'a'] > 0)
+			if (reg[instr[4]] > 0)
 				jump = second_val;
 		}
 		else if (atoi(&instr[4]) > 0)
@@ -97,7 +97,7 @@ int		main(void)
 	char	**instr;
 	int		len;
 	int		ptr;
-	long long	reg['z' - 'a'] = { 0 };
+	long long	reg['z'] = { 0 };
 
 	str_file = extract_file("input.txt");
 
@@ -106,9 +106,8 @@ int		main(void)
 	ptr = 0;
 	while (ptr < len - 1)
 	{
-		printf("STR: %s %lld\n", instr[ptr], reg[0]);
+		// printf("STR: %s %lld\n", instr[ptr], reg['a']);
 		ptr += do_op(instr[ptr], reg);
-		// ptr++;
 	}
 	return (0);
 }
