@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 21:48:09 by home              #+#    #+#             */
-/*   Updated: 2020/10/03 23:07:36 by home             ###   ########.fr       */
+/*   Updated: 2020/10/10 20:34:56 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@ int		main(void)
 	int			ia;
 	long long	b;
 	int			ib;
+
 	int			f_a;
 	int			f_b;
-	int			i;
-	int			result;
 
 	str_file = extract_file("input.txt");
 	str_file += fetch_int(str_file, &ia);
@@ -31,6 +30,9 @@ int		main(void)
 	b = ib;
 	f_a = 16807;
 	f_b = 48271;
+
+	int			i;
+	int			result;
 
 	i = 0;
 	result = 0;

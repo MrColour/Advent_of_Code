@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 18:27:59 by home              #+#    #+#             */
-/*   Updated: 2020/10/03 21:43:54 by home             ###   ########.fr       */
+/*   Updated: 2020/10/10 20:26:15 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*knot_hash(char *str);
 
-void		ctob(char *out, int size, char *dst)
+void		ctob(char *out, char *dst)
 {
 	int	i;
 	int	j;
@@ -35,7 +35,6 @@ void		ctob(char *out, int size, char *dst)
 		}
 		i++;
 	}
-	(void)size;
 }
 
 void	flood_fill(char **grid, int x, int y, int size)
@@ -66,7 +65,6 @@ int		main(void)
 	salt = extract_file("input.txt");
 	strchr(salt, '\n')[0] = '\0';
 
-	// salt = strdup("flqrgnkx");
 	ALLOC_2D(grid, 128, 129, calloc_wrapper, &g_ameta)
 
 	i = 0;
@@ -75,7 +73,7 @@ int		main(void)
 		asprintf(&input, "%s-%d", salt, i);
 
 		output = knot_hash(input);
-		ctob(output, 16, grid[i]);
+		ctob(output, grid[i]);
 
 		i++;
 	}

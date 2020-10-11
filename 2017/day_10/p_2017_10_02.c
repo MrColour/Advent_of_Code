@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 20:31:13 by home              #+#    #+#             */
-/*   Updated: 2020/10/02 21:15:34 by home             ###   ########.fr       */
+/*   Updated: 2020/10/10 20:01:41 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,6 @@ int	convert_ascii(int *dst, char *str)
 	int	i = 0;
 	while (str[i] != '\0') { dst[i] = str[i]; i++; }
 	return (i);
-}
-
-void	append_len(int *dst, int start, int *suffix, int size)
-{
-	int		i = 0;
-	while (i < size) { dst[i + start] = suffix[i]; i++; }
 }
 
 void	knot_hash(int len, int curr, int *list)
@@ -86,7 +80,7 @@ int		main(void)
 	new_len = calloc((size), sizeof(*new_len));
 
 	at = convert_ascii(new_len, str_file);
-	append_len(new_len, at, suffix_len, sizeof(suffix_len) / 4);
+	memmove(&new_len[at], suffix_len, sizeof(suffix_len));
 
 	int		i;
 	int		curr_pos;

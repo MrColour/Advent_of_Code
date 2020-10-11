@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 18:38:17 by home              #+#    #+#             */
-/*   Updated: 2020/10/01 19:59:52 by home             ###   ########.fr       */
+/*   Updated: 2020/10/10 08:21:03 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,9 @@ void	*node_alloc(t_alloc_meta *alloc_info, size_t count, size_t elem_size)
 	new_prog = malloc(count * elem_size);
 
 	new_prog->id = strndup(line, strchr(line, ' ') - line);
-	fetch_int(line, &new_prog->wieght);
 	new_prog->child = false;
 	new_prog->children = NULL;
 
-	// printf("STR %d: %.10s\n", *alloc_info->index, new_prog->id);
-	(*alloc_info->index)++;
 	*alloc_info->iter_addr = strchr(line, '\n') + 1;
 
 	return (new_prog);
@@ -86,9 +83,7 @@ int		main(void)
 	str_file = extract_file("input.txt");
 	size = count_occur("\n", str_file);
 
-	i = 0;
 	s_tok = str_file;
-	g_ameta.index = &i;
 	g_ameta.iter_addr = (void **)&s_tok;
 	ALLOC_1D(tower, size, node_alloc, &g_ameta)
 

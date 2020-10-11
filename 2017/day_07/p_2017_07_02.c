@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 18:38:17 by home              #+#    #+#             */
-/*   Updated: 2020/10/01 20:43:14 by home             ###   ########.fr       */
+/*   Updated: 2020/10/10 08:27:36 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ void	*node_alloc(t_alloc_meta *alloc_info, size_t count, size_t elem_size)
 	new_prog->child_amount = 0;
 	new_prog->children = NULL;
 
-	// printf("STR %d: %.10s\n", *alloc_info->index, new_prog->id);
-	(*alloc_info->index)++;
 	*alloc_info->iter_addr = strchr(line, '\n') + 1;
 
 	return (new_prog);
@@ -60,7 +58,7 @@ void	tag_children(t_tower_elem *tower, int size, char *line, int index)
 	STR_SPLIT(child_split, children, NULL, " ", i)
 	child_split = &child_split[1];
 	tower[index].child_amount = i - 1;
-	tower[index].children = calloc(tower[index].child_amount, sizeof(tower[index].children));
+	tower[index].children = calloc(tower[index].child_amount, sizeof(*tower[index].children));
 
 	i = 0;
 	c_i = 0;
@@ -132,9 +130,7 @@ int		main(void)
 	str_file = extract_file("input.txt");
 	size = count_occur("\n", str_file);
 
-	i = 0;
 	s_tok = str_file;
-	g_ameta.index = &i;
 	g_ameta.iter_addr = (void **)&s_tok;
 	ALLOC_1D(tower, size, node_alloc, &g_ameta)
 

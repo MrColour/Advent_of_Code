@@ -6,20 +6,11 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 20:48:39 by home              #+#    #+#             */
-/*   Updated: 2020/10/02 00:51:06 by home             ###   ########.fr       */
+/*   Updated: 2020/10/10 19:17:48 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../aoc++.h"
-
-typedef struct	s_reg
-{
-
-	char		*id;
-	int			val;
-
-	struct s_reg	*next;
-}				t_reg;
 
 int		get_index(char *reg)
 {
