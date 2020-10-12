@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 00:21:00 by home              #+#    #+#             */
-/*   Updated: 2020/10/11 23:30:32 by home             ###   ########.fr       */
+/*   Updated: 2020/10/11 23:31:05 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ static inline int	skip_space(char *src, int times) { return (skip_char(src, time
 
 // Rank: • • • • •
 static inline void	strr(char *str) { int i = 0; int j = strlen(str) - 1; char t; while (i < j) { t = str[i]; str[i] = str[j]; str[j] = t; i++; j--;} }
-// static inline void	strr(char *str) { int i = 0; int j = strlen(str) - 1; while (i < j) {asm("mov %1, %0" : "=r" (str[i]) : "r" (str[j])); i++; j--;} }
 
 //Other
 
