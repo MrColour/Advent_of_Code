@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 00:21:00 by home              #+#    #+#             */
-/*   Updated: 2020/10/05 18:55:08 by home             ###   ########.fr       */
+/*   Updated: 2020/10/11 23:30:32 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,10 @@ static inline int	skip_char(char *src, int times, char c) {
 static inline int	skip_space(char *src, int times) { return (skip_char(src, times, ' '));
 }
 
+// Rank: • • • • •
+static inline void	strr(char *str) { int i = 0; int j = strlen(str) - 1; char t; while (i < j) { t = str[i]; str[i] = str[j]; str[j] = t; i++; j--;} }
+// static inline void	strr(char *str) { int i = 0; int j = strlen(str) - 1; while (i < j) {asm("mov %1, %0" : "=r" (str[i]) : "r" (str[j])); i++; j--;} }
+
 //Other
 
 // Rank: * * * • •
@@ -115,6 +119,8 @@ static inline bool	unique_int(int num) {
 // swap, on the STACK, the information of first and second.
 // Warning: need to double check on the temp name, to ensure it is unique, but so far it passes test.
 # define SWAP(first, second, type) { type __LINE__##__FILE__##_temp = first; first = second; second = __LINE__##__FILE__##_temp; }
+
+# define answer(type, result) printf("Your puzzle answer is %"#type".\n", result);
 
 // The below is a macro so that the variable itself can be dereferenced.
 // If it were a function, one would have to pass sizeof(*var) and sizeof(**var)
@@ -178,15 +184,15 @@ static inline void	*strsplit_alloc(t_alloc_meta *alloc_info, size_t count __attr
 // sidestep this with the usage of __LINE__ and __FILE__ however
 // to ensure a unique symbol name.
 
-static char	*_internal__src_cpy;
-static int		_internal__alloc_index;
+static char	*_internal_src_cpy;
+static int	_internal_alloc_index;
 
 # define ALLOC_1D(name, row, alloc_func, alloc_data)				\
 	name = calloc(row + 1, sizeof(*name));							\
 	for (int _iname = 0; _iname < row; _iname++) {					\
-	_internal__src_cpy = alloc_func(alloc_data, 1, sizeof(*name));	\
-		memmove(&name[_iname], _internal__src_cpy, sizeof(*name));	\
-		free(_internal__src_cpy);									\
+	_internal_src_cpy = alloc_func(alloc_data, 1, sizeof(*name));	\
+		memmove(&name[_iname], _internal_src_cpy, sizeof(*name));	\
+		free(_internal_src_cpy);									\
 	};																\
 
 # define ALLOC_2D(name, row, col, alloc_func, alloc_data)			\
@@ -201,15 +207,30 @@ static int		_internal__alloc_index;
 
 // Rank: * * • • •
 # define STR_SPLIT(dst, src, s_lim, e_lim, len)						\
-	_internal__src_cpy = src;										\
-	_internal__alloc_index = 0;										\
-	len = count_occur(e_lim, _internal__src_cpy) + 1;				\
+	_internal_src_cpy = src;										\
+	_internal_alloc_index = 0;										\
+	len = count_occur(e_lim, _internal_src_cpy) + 1;				\
 																	\
-	g_ameta.iter_addr = (void **)(&_internal__src_cpy);				\
-	g_ameta.index = &_internal__alloc_index;						\
+	g_ameta.iter_addr = (void **)(&_internal_src_cpy);				\
+	g_ameta.index = &_internal_alloc_index;							\
 	g_ameta.s_delim = s_lim;										\
 	g_ameta.e_delim = e_lim;										\
 	ALLOC_2D(dst, len, 0, strsplit_alloc, &g_ameta);				\
 	len = *g_ameta.index;											\
+
+char	*_tok;
+int		_i;
+
+# define FOR_EACH_STRTOK(src, delim, body) 							\
+{																	\
+	_tok = strtok(src, delim); _i = 0;								\
+	while (_tok != NULL) { body; _tok = strtok(NULL, delim); ++_i;}	\
+}																	\
+
+# define FOR_EACH(condition, body)									\
+{																	\
+	_i = 0;															\
+	while (condition) { body; ++_i;}								\
+}																	\
 
 #endif
