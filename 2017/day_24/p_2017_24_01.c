@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 05:04:33 by home              #+#    #+#             */
-/*   Updated: 2020/10/07 21:07:52 by home             ###   ########.fr       */
+/*   Updated: 2020/10/11 23:45:00 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,11 @@ int		main(void)
 	len = count_occur("\n", s_tok);
 	pipes = calloc(len, sizeof(*pipes));
 
-	i = 0;
-	s_tok = strtok(s_tok, "\n");
-	while (s_tok != NULL)
-	{
-		s_tok += fetch_int(s_tok, &pipes[i].a);
-		s_tok += fetch_int(s_tok, &pipes[i].b);
-		pipes[i].used = false;
-		s_tok = strtok(NULL, "\n");
-		i++;
-	}
+	FOR_EACH_STRTOK(s_tok, "\n",
+		_tok += fetch_int(_tok, &pipes[_i].b);
+		_tok += fetch_int(_tok, &pipes[_i].a);
+		pipes[_i].used = false;
+	)
 
 	int	result;
 
@@ -82,6 +77,6 @@ int		main(void)
 		}
 		i++;
 	}
-	printf("RESULT: %d\n", result);
+	answer(d, result);
 	return (0);
 }
