@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 00:21:00 by home              #+#    #+#             */
-/*   Updated: 2020/10/12 21:42:03 by home             ###   ########.fr       */
+/*   Updated: 2020/10/13 03:03:37 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	*first(void *this, size_t size, size_t width, int (cmp)(const void *, const
 
 	curr = 1; result = this; ptr = this + width;
 	while (curr < size) {
-		if (cmp(result, ptr) < 0) result = ptr;
+		if (cmp(ptr, result) < 0) result = ptr;
 		ptr += width; curr++;
 	}
 	return (result);
@@ -73,7 +73,7 @@ void	*last(void *this, size_t size, size_t width, int (cmp)(const void *, const 
 
 	curr = 1; result = this; ptr = this + width;
 	while (curr < size) {
-		if (cmp(result, ptr) >= 0) result = ptr;
+		if (cmp(ptr, result) >= 0) result = ptr;
 		ptr += width; curr++;
 	}
 	return (result);
