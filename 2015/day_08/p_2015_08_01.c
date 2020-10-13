@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 16:02:30 by home              #+#    #+#             */
-/*   Updated: 2020/09/13 21:05:39 by home             ###   ########.fr       */
+/*   Updated: 2020/10/12 23:40:31 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,11 @@ int		main(void)
 
 	result = 0;
 	str_file = extract_file("input.txt");
-	str_file = strtok(str_file, "\n");
-	while (str_file != NULL)
-	{
-		process_string(&code_chars, &str_chars, str_file);
-		// printf("String: %2d, %2d [%s]\n", code_chars, str_chars, str_file);
+	FOR_EACH_STRTOK(str_file, "\n",
+		process_string(&code_chars, &str_chars, _tok);
+		// printf("String: %2d, %2d [%s]\n", code_chars, str_chars, _tok);
 		result += (code_chars - str_chars);
-		str_file = strtok(NULL, "\n");
-	}
-	printf("Result: %d\n", result);
+	)
+	answer(d, result);
 	return (0);
 }
