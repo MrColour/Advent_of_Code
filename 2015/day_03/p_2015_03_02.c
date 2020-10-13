@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 02:01:35 by home              #+#    #+#             */
-/*   Updated: 2020/09/28 17:13:36 by home             ###   ########.fr       */
+/*   Updated: 2020/10/12 22:39:27 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,17 @@ void	process_str_file(pos2i *dest, char *str_file)
 	r_x = 0;
 	r_y = 0;
 
+	c_x = &s_x;
+	c_y = &s_y;
 	while (str_file[i] != '\0')
 	{
-		if (i % 2 == 0)
-		{
-			c_x = &s_x;
-			c_y = &s_y;
-		}
-		else
-		{
-			c_x = &r_x;
-			c_y = &r_y;
-		}
-
 		direction("^v<>", str_file[i], c_x, c_y);
 
 		dest[i].x = *c_x;
 		dest[i].y = *c_y;
 
+		c_x = (int *)((uintptr_t)c_x ^ (((uintptr_t)&r_x ^ (uintptr_t)&s_x)));
+		c_y = (int *)((uintptr_t)c_y ^ (((uintptr_t)&r_y ^ (uintptr_t)&s_y)));
 		i++;
 	}
 	dest[i].x = 0;
@@ -97,6 +90,6 @@ int		main(void)
 		i++;
 	}
 
-	printf("Result: %d\n", unique);
+	answer(d, unique);
 	return (0);
 }

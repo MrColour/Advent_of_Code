@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 21:37:35 by home              #+#    #+#             */
-/*   Updated: 2020/09/28 17:19:41 by home             ###   ########.fr       */
+/*   Updated: 2020/10/12 23:30:13 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,13 @@ int		twice_pair(char *str_file)
 
 	i = 0;
 	twice_pair = false;
-	while (str_file[i] != '\0' && str_file[i] != '\n' && twice_pair == false)
+	while (str_file[i] != '\0' && twice_pair == false)
 	{
 		j = i + 2;
-		while (str_file[j] != '\0' && str_file[j] != '\n' &&
-				str_file[j + 1] != '\0' && str_file[j + 1] != '\n')
+		while (str_file[j] != '\0' && str_file[j + 1] != '\0')
 		{
 			if (strncmp(&(str_file[i]), &(str_file[j]), 2) == 0)
-			{
-				printf("%.2s and %.2s\n", &(str_file[i]), &(str_file[j]));
 				twice_pair = true;
-			}
 			j++;
 		}
 		i++;
@@ -44,12 +40,12 @@ int		twice_pair(char *str_file)
 
 int	repeat_with_between(char *str_file)
 {
-	int	i;
+	int		i;
 	bool	result;
 
 	i = 0;
 	result = false;
-	while (str_file[i + 2] != '\0' && str_file[i + 2] != '\n' && result == false)
+	while (str_file[i + 2] != '\0' && result == false)
 	{
 		if (str_file[i] == str_file[i + 2])
 			result = true;
@@ -70,22 +66,19 @@ int main(void)
 
 	nice_strings = 0;
 	str_file = extract_file("input.txt");
-	str_file = strtok(str_file, "\n");
 
-	while (str_file != NULL)
-	{
+	FOR_EACH_STRTOK(str_file, "\n",
 		checksum = 0;
-		checksum += twice_pair(str_file);
-		checksum += repeat_with_between(str_file);
+		checksum += twice_pair(_tok);
+		checksum += repeat_with_between(_tok);
 
 		if (checksum >= 2)
 		{
 			nice_strings++;
-			printf("String: %.16s\n", str_file);
+			// printf("String: %.16s\n", _tok);
 		}
-		str_file = strtok(NULL, "\n");
-	}
+	)
 
-	printf("Result: %d\n", nice_strings);
+	answer(d, nice_strings);
 	return (0);
 }

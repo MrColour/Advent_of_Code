@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 23:52:51 by home              #+#    #+#             */
-/*   Updated: 2020/09/28 16:05:56 by home             ###   ########.fr       */
+/*   Updated: 2020/10/12 21:48:21 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,16 @@ int	main(void)
 
 	total_paper = 0;
 	str_file = extract_file("input.txt");
-	str_file = strtok(str_file, "x\n");
-	while (str_file != NULL)
-	{
-		l = atoi(str_file);
-		str_file = strtok(NULL, "x\n");
-		w = atoi(str_file);
-		str_file = strtok(NULL, "x\n");
-		h = atoi(str_file);
-		str_file = strtok(NULL, "x\n");
+
+	FOR_EACH_STRTOK(str_file, "\n",
+		_tok += fetch_int(_tok, &l);
+		_tok += fetch_int(_tok, &w);
+		_tok += fetch_int(_tok, &h);
 
 		total_paper += (2 * l * w) + (2 * w * h) + (2 * h * l);
 		total_paper += MIN(MIN((l * w), (w * h)), (h * l));
-	}
+	)
 
-	printf("Result: %d\n", total_paper);
+	answer(d, total_paper);
 	return (0);
 }

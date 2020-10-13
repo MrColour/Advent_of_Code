@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 04:06:35 by home              #+#    #+#             */
-/*   Updated: 2020/09/28 04:02:34 by home             ###   ########.fr       */
+/*   Updated: 2020/10/12 18:29:04 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ int		main(void)
 	result = count_occur("(", file);
 	result -= strlen(file) - result;
 
-	printf("Result: %d\n", result);
+	answer(d, result);
 	return (0);
 }

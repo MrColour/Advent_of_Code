@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 00:21:00 by home              #+#    #+#             */
-/*   Updated: 2020/10/12 02:59:26 by home             ###   ########.fr       */
+/*   Updated: 2020/10/12 21:42:03 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static inline int	char_cmp_des(const void *a, const void *b) { return ((*(char *
 
 void	*first(void *this, size_t size, size_t width, int (cmp)(const void *, const void *))
 {
-	int		curr;
+	size_t	curr;
 	void	*result, *ptr;
 
 	curr = 1; result = this; ptr = this + width;
@@ -68,7 +68,7 @@ void	*first(void *this, size_t size, size_t width, int (cmp)(const void *, const
 
 void	*last(void *this, size_t size, size_t width, int (cmp)(const void *, const void *))
 {
-	int		curr;
+	size_t	curr;
 	void	*result, *ptr;
 
 	curr = 1; result = this; ptr = this + width;
@@ -151,7 +151,7 @@ static inline void	direction(char *dir_pad, char key,int *x, int *y)
 // Warning: need to double check on the temp name, to ensure it is unique, but so far it passes test.
 # define SWAP(first, second, type) { type __LINE__##__FILE__##_temp = first; first = second; second = __LINE__##__FILE__##_temp; }
 
-# define answer(type, result) printf("Your puzzle answer is %"#type".\n", result);
+# define answer(type, result) printf("Your puzzle answer is `\e[38;2;255;255;0m%"#type"\e[0m`.\n", result);
 
 // Variables that a macro has to make need to become global so that
 // macros may re-use the same symbol name. It may be possible to

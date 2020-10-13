@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 23:52:51 by home              #+#    #+#             */
-/*   Updated: 2020/09/28 16:06:07 by home             ###   ########.fr       */
+/*   Updated: 2020/10/12 21:50:54 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,16 @@ int	main(void)
 
 	total_ribbon = 0;
 	str_file = extract_file("input.txt");
-	str_file = strtok(str_file, "x\n");
-	while (str_file != NULL)
-	{
-		l = atoi(str_file);
-		str_file = strtok(NULL, "x\n");
-		w = atoi(str_file);
-		str_file = strtok(NULL, "x\n");
-		h = atoi(str_file);
-		str_file = strtok(NULL, "x\n");
+
+	FOR_EACH_STRTOK(str_file, "\n",
+		_tok += fetch_int(_tok, &l);
+		_tok += fetch_int(_tok, &w);
+		_tok += fetch_int(_tok, &h);
 
 		total_ribbon += (l * w * h);
 		total_ribbon += (MIN(MIN((l + w), (w + h)), (h + l))) * 2;
-	}
+	)
 
-	printf("Result: %d\n", total_ribbon);
+	answer(d, total_ribbon);
 	return (0);
 }

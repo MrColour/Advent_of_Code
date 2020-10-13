@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 02:01:35 by home              #+#    #+#             */
-/*   Updated: 2020/09/28 17:12:33 by home             ###   ########.fr       */
+/*   Updated: 2020/10/12 22:39:41 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,10 @@ int		main(void)
 	{
 		if (positions[i - 1].x != positions[i].x || positions[i - 1].y != positions[i].y)
 			unique++;
-
-		printf("(%d, %d)\n", positions[i].x, positions[i].y);
+		// printf("(%d, %d)\n", positions[i].x, positions[i].y);
 		i++;
 	}
 
-	printf("Result: %d\n", unique);
+	answer(d, unique);
 	return (0);
 }

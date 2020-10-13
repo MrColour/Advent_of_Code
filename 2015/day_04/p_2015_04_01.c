@@ -6,14 +6,11 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 03:38:36 by home              #+#    #+#             */
-/*   Updated: 2020/09/16 00:53:34 by home             ###   ########.fr       */
+/*   Updated: 2020/10/12 23:03:08 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <strings.h>
+#include "../aoc++.h"
 
 #include "md5.h"
 
@@ -34,13 +31,11 @@ int	main(void)
 		MD5_Init(&cxt);
 		MD5_Update(&cxt, hash, strlen(hash));
 		MD5_Final(result, &cxt);
-		printf("S: %s\n", result);
 
 		if (result[0] == 0 && result[1] == 0 && (result[2] & 0xF0) == 0)
 			break ;
-		free(hash);
 		i++;
 	}
-	printf("Result: %d\n", i);
+	answer(d, i);
 	return (0);
 }
