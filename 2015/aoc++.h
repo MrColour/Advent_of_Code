@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 00:21:00 by home              #+#    #+#             */
-/*   Updated: 2020/10/13 03:03:37 by home             ###   ########.fr       */
+/*   Updated: 2020/10/14 02:01:07 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,12 @@ static inline void	direction(char *dir_pad, char key,int *x, int *y)
 // sidestep this with the usage of __LINE__ and __FILE__ however
 // to ensure a unique symbol name they are made as global variables.
 // Such variables will begin with an underscore '_'
+
+// Scoping matters since they are global variables. Maybe change to __LINE__
+// and __FILE__ later to keep them unique within the same scope. In order
+// to have a way to call these however, the __LINE__ varaible will need
+// to save the current value to _i and set it back after. It will be like
+// a wrap around that on each call creates stack space.
 
 char	*_tok;
 int		_i;

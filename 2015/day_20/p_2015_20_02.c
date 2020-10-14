@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_2015_20_01.c                                     :+:      :+:    :+:   */
+/*   p_2015_20_02.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 21:59:43 by home              #+#    #+#             */
-/*   Updated: 2020/10/14 03:21:50 by home             ###   ########.fr       */
+/*   Updated: 2020/10/14 02:15:50 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ int		main(void)
 	{
 		j = 0;
 		house = elf;
-		if (presents[house] + (elf * 10) > stop)
+		if (presents[house] + (elf * 11) > stop)
 			break ;
-		while (j < (stop) && house < stop && presents[house] <= stop)
+		while (j < 50 && house < stop && presents[house] <= stop)
 		{
-			presents[house] += (elf * 10);
+			presents[house] += (elf * 11);
 			// printf("House %d got %d presents.\n", house, presents[house]);
 			house += elf;
 			j++;

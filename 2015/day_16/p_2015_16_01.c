@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 23:03:23 by home              #+#    #+#             */
-/*   Updated: 2020/09/28 21:11:44 by home             ###   ########.fr       */
+/*   Updated: 2020/10/13 03:38:28 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,8 @@
 int	main(void)
 {
 	int		i;
-	int		j;
 	bool	match;
-	char	*ptr;
 	char	*s_tok;
-	char	*str_file;
 	char	*(good_aunt_sue[11]);
 
 	good_aunt_sue[0] = " children: 3";
@@ -35,34 +32,32 @@ int	main(void)
 	good_aunt_sue[10] = NULL;
 
 	i = 0;
-	match = false;
-	str_file = extract_file("input.txt");
-	s_tok = strtok(str_file, "\n");
+	match = false; //Search until right aunt is found
+	s_tok = extract_file("input.txt");
+	s_tok = strtok(s_tok, "\n");
 	while (s_tok != NULL && match == false)
 	{
-		match = true;
-		ptr = strchr(s_tok, ':');
-		while (ptr != NULL && match == true)
+		match = true; //Assume this is the right aunt
+		s_tok = strchr(s_tok, ':');
+		while (s_tok != NULL && match == true)
 		{
-			ptr++;
+			s_tok++;
 
-			j = 0;
-			while (good_aunt_sue[j] != NULL)
-			{
-				if (strncmp(ptr, good_aunt_sue[j], strlen(good_aunt_sue[j])) == 0)
+			match = false; //Search until attribute is found
+			FOR_EACH(good_aunt_sue[_i] != NULL,
+				if (strncmp(s_tok, good_aunt_sue[_i], strlen(good_aunt_sue[_i])) == 0)
+				{
+					match = true;
 					break ;
-				j++;
-			}
+				}
+			)
 
-			if (good_aunt_sue[j] == NULL)
-				match = false;
-
-			ptr = strchr(ptr, ',');
+			s_tok = strchr(s_tok, ',');
 		}
 
 		s_tok = strtok(NULL, "\n");
 		i++;
 	}
-	printf("RESULT: %d\n", i);
+	answer(d, i);
 	return (0);
 }
