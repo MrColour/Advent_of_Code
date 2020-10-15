@@ -6,29 +6,11 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 03:53:53 by home              #+#    #+#             */
-/*   Updated: 2020/09/28 03:44:10 by home             ###   ########.fr       */
+/*   Updated: 2020/10/15 01:18:25 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../aoc++.h"
-
-char	*strr(char *s)
-{
-	int		i;
-	int		j;
-	char	*result;
-
-	i = 0;
-	j = strlen(s) - 1;
-	while (i < j)
-	{
-		SWAP(s[i], s[j], char)
-
-		i++;
-		j--;
-	}
-	return (s);
-}
 
 void	replace(char *str)
 {
@@ -56,7 +38,7 @@ char	*fill_disk(char *input, int cap)
 	while (curr_size < cap)
 	{
 		r_str = strdup(s_curve);
-		r_str = strr(r_str);
+		strr(r_str);
 		replace(r_str);
 
 		asprintf(&s_curve, "%s0%s", s_curve, r_str);
