@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 01:26:05 by home              #+#    #+#             */
-/*   Updated: 2020/09/28 03:56:00 by home             ###   ########.fr       */
+/*   Updated: 2020/10/15 03:32:13 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,8 +150,7 @@ int		main(void)
 	int		newlines;
 	int		**dis;
 
-	ALLOC_2D(dis, 11, 10, calloc_wrapper, NULL)
-	dis = &(dis[1]);
+	ALLOC_2D(dis, 10, 10, calloc_wrapper, NULL)
 
 	str_file = extract_file("input.txt");
 	NEWLINE_SPLIT(map, str_file, newlines)
@@ -164,6 +163,6 @@ int		main(void)
 	min = INT_MAX;
 	choosen[0] = 1;
 	dfs_permute(choosen, 0, &min, dis, 0, 0);
-	printf("RESULT: %d\n", min);
+	answer(d, min);
 	return (0);
 }

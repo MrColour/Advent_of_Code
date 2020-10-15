@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 23:23:03 by home              #+#    #+#             */
-/*   Updated: 2020/09/30 00:56:24 by home             ###   ########.fr       */
+/*   Updated: 2020/10/15 03:09:01 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,7 @@ char		*rotate_b_op_r(char *instr, char *string)
 	seek = instr[strlen(instr) - 1];
 	// printf("CHAR: %c\n", instr[strlen(instr) - 1]);
 
-	at = 0;
-	while (string[at] != '\0')
-	{
-		if (string[at] == seek)
-			break ;
-		at++;
-	}
+	at = strchr(string, seek) - string;
 
 	i = 0;
 	len = strlen(string);
@@ -151,7 +145,6 @@ char		*reverse_op_r(char *instr, char *string)
 char		*move_op_r(char *instr, char *string)
 {
 	char	*ptr;
-	char	*buff;
 	char	move_char;
 	int		x;
 	int		y;
@@ -160,28 +153,14 @@ char		*move_op_r(char *instr, char *string)
 	ptr += fetch_int(ptr, &y);
 	ptr += fetch_int(ptr, &x);
 
-	buff = strdup(string);
 	// printf("move at %d to %d\n", x, y);
+	move_char = string[x];
 
 	if (x < y)
-	{
-		if (x > 0)
-			memmove(string, buff, x - 1);
-		move_char = buff[x];
-		memmove(&string[x], &buff[x + 1], y - x);
-		string[y] = move_char;
-		memmove(&string[y + 1], &buff[y + 1], strlen(buff) - y - 1);
-	}
+		memmove(&string[x], &string[x + 1], y - x);
 	else
-	{
-		move_char = buff[x];
-		if (y > 0)
-			memmove(string, buff, y - 1);
-		string[y] = move_char;
-		memmove(&string[y + 1], &buff[y], x - y + 1);
-		memmove(&string[x + 1], &buff[x + 1], strlen(string) - x);
-
-	}
+		memmove(&string[y + 1], &string[y], x - y);
+	string[y] = move_char;
 	return (string);
 }
 
@@ -235,6 +214,6 @@ int		main(void)
 		string = do_op(instr[i], string);
 		i--;
 	}
-	printf("RESULT: %s\n", string);
+	answer(s, string);
 	return (0);
 }
