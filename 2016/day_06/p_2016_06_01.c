@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 01:13:40 by home              #+#    #+#             */
-/*   Updated: 2020/09/16 01:26:12 by home             ###   ########.fr       */
+/*   Updated: 2020/10/14 03:48:47 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,12 @@ int		main(void)
 		s_tok = strtok(NULL, "\n");
 	}
 
-	int		i;
-	int		j;
-	int		most;
+	int		*most;
 
-	i = 0;
-	while (i < 8)
-	{
-		j = 0;
-		most = 0;
-		while (j < 250)
-		{
-			if (occur[i][j] > occur[i][most])
-				most = j;
-			j++;
-		}
-		printf("%c", most);
-		i++;
-	}
+	FOR_EACH(_i < 8,
+		most = last(occur[_i], 250, sizeof(*(occur[_i])), int_cmp_asc);
+		printf("%c", (char)(most - occur[_i]));
+	)
 	printf("\n");
 	return (0);
 }

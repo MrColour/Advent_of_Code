@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 16:19:56 by home              #+#    #+#             */
-/*   Updated: 2020/09/29 17:00:58 by home             ###   ########.fr       */
+/*   Updated: 2020/10/14 03:28:49 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ int		main(void)
 		if (dir == 3)
 			x -= steps;
 
-		printf("%s with %d\n", s_tok, steps);
+		// printf("%s with %d\n", s_tok, steps);
 		s_tok = strtok(NULL, " ");
 	}
 	if (x <= 0)
 		x *= -1;
 	if (y <= 0)
 		y *= -1;
-	printf("%d\n", (y + x));
+	answer(d, (y + x));
 	return (0);
 }

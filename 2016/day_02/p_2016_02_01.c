@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 22:09:21 by home              #+#    #+#             */
-/*   Updated: 2020/09/29 17:15:54 by home             ###   ########.fr       */
+/*   Updated: 2020/10/14 03:33:23 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,10 @@ int		main(void)
 	row = 1;
 	col = 1;
 	printf("RESULT: ");
-	str_file = strtok(str_file, "\n");
-	while (str_file != NULL)
-	{
-		process_line(&row, &col, str_file);
+	FOR_EACH_STRTOK(str_file, "\n",
+		process_line(&row, &col, _tok);
 		printf("%d", row * 3 + (col + 1));
-		str_file = strtok(NULL, "\n");
-	}
+	)
 	printf("\n");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 22:41:41 by home              #+#    #+#             */
-/*   Updated: 2020/09/14 22:49:50 by home             ###   ########.fr       */
+/*   Updated: 2020/10/14 03:38:04 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,13 @@ int		process_line(char *str)
 int		main(void)
 {
 	char	*str_file;
-	char	*s_tok;
 	int		result;
 
 	result = 0;
 	str_file = extract_file("input.txt");
-	s_tok = strtok(str_file, "\n");
-	while (s_tok != NULL)
-	{
-		result += process_line(s_tok);
-		s_tok = strtok(NULL, "\n");
-	}
-	printf("RESULT: %d\n", result);
+	FOR_EACH_STRTOK(str_file, "\n",
+		result += process_line(_tok);
+	)
+	answer(d, result);
 	return (0);
 }

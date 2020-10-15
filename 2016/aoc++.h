@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 00:21:00 by home              #+#    #+#             */
-/*   Updated: 2020/10/12 02:59:26 by home             ###   ########.fr       */
+/*   Updated: 2020/10/14 04:10:41 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,17 @@ static inline int	int_cmp_asc(const void *a, const void *b) {return ((*(int *)a)
 static inline int	int_cmp_des(const void *a, const void *b) {return ((*(int *)a) > (*(int *)b) ? -1 : 1);}
 static inline int	char_cmp_asc(const void *a, const void *b) { return ((*(char *)a > *(char *)b) ? 1 : -1); }
 static inline int	char_cmp_des(const void *a, const void *b) { return ((*(char *)a < *(char *)b) ? 1 : -1); }
+static inline int	uchar_cmp_asc(const void *a, const void *b) { return ((*(unsigned char *)a > *(unsigned char *)b) ? 1 : -1); }
+static inline int	uchar_cmp_des(const void *a, const void *b) { return ((*(unsigned char *)a < *(unsigned char *)b) ? 1 : -1); }
 
 void	*first(void *this, size_t size, size_t width, int (cmp)(const void *, const void *))
 {
-	int		curr;
+	size_t	curr;
 	void	*result, *ptr;
 
 	curr = 1; result = this; ptr = this + width;
 	while (curr < size) {
-		if (cmp(result, ptr) < 0) result = ptr;
+		if (cmp(ptr, result) < 0) result = ptr;
 		ptr += width; curr++;
 	}
 	return (result);
@@ -68,12 +70,12 @@ void	*first(void *this, size_t size, size_t width, int (cmp)(const void *, const
 
 void	*last(void *this, size_t size, size_t width, int (cmp)(const void *, const void *))
 {
-	int		curr;
+	size_t	curr;
 	void	*result, *ptr;
 
 	curr = 1; result = this; ptr = this + width;
 	while (curr < size) {
-		if (cmp(result, ptr) >= 0) result = ptr;
+		if (cmp(ptr, result) >= 0) result = ptr;
 		ptr += width; curr++;
 	}
 	return (result);
@@ -151,13 +153,19 @@ static inline void	direction(char *dir_pad, char key,int *x, int *y)
 // Warning: need to double check on the temp name, to ensure it is unique, but so far it passes test.
 # define SWAP(first, second, type) { type __LINE__##__FILE__##_temp = first; first = second; second = __LINE__##__FILE__##_temp; }
 
-# define answer(type, result) printf("Your puzzle answer is %"#type".\n", result);
+# define answer(type, result) printf("Your puzzle answer is `\e[38;2;255;255;0m%"#type"\e[0m`.\n", result);
 
 // Variables that a macro has to make need to become global so that
 // macros may re-use the same symbol name. It may be possible to
 // sidestep this with the usage of __LINE__ and __FILE__ however
 // to ensure a unique symbol name they are made as global variables.
 // Such variables will begin with an underscore '_'
+
+// Scoping matters since they are global variables. Maybe change to __LINE__
+// and __FILE__ later to keep them unique within the same scope. In order
+// to have a way to call these however, the __LINE__ varaible will need
+// to save the current value to _i and set it back after. It will be like
+// a wrap around that on each call creates stack space.
 
 char	*_tok;
 int		_i;

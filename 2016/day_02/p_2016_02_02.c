@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 22:24:33 by home              #+#    #+#             */
-/*   Updated: 2020/09/29 17:56:14 by home             ###   ########.fr       */
+/*   Updated: 2020/10/14 03:36:35 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int		main(void)
 {
 	int		row;
 	int		col;
-	char	*s_tok;
 	char	*str_file;
 
 	int		**mask;
@@ -75,13 +74,10 @@ int		main(void)
 
 	mask[4][2] = U;
 
-	s_tok = strtok(str_file, "\n");
-	while (s_tok != NULL)
-	{
-		process_line(&row, &col, s_tok, mask);
+	FOR_EACH_STRTOK(str_file, "\n",
+		process_line(&row, &col, _tok, mask);
 		printf("%d ", row * 5 + (col + 1));
-		s_tok = strtok(NULL, "\n");
-	}
+	)
 	printf("\n");
 	return (0);
 }

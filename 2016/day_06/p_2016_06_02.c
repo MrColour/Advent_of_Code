@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 01:13:40 by home              #+#    #+#             */
-/*   Updated: 2020/09/16 01:42:34 by home             ###   ########.fr       */
+/*   Updated: 2020/10/14 04:12:02 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		main(void)
 {
 	char	*str_file;
 	char	*s_tok;
-	int		occur[8][250] = { 0 };
+	unsigned char	occur[8][250] = { 0 };
 
 	// memset(occur, 0, sizeof(occur));
 	str_file = extract_file("input.txt");
@@ -35,24 +35,13 @@ int		main(void)
 		s_tok = strtok(NULL, "\n");
 	}
 
-	int		i;
-	int		j;
-	int		least;
+	unsigned char	*least;
 
-	i = 0;
-	while (i < 8)
-	{
-		j = 0;
-		least = str_file[i];
-		while (j < 250)
-		{
-			if (occur[i][j] > occur[i][least] && occur[i][j] < 0)
-				least = j;
-			j++;
-		}
-		printf("%c", least);
-		i++;
-	}
+	FOR_EACH(_i < 8,
+		least = first(occur[_i], 250, sizeof(*(occur[_i])), uchar_cmp_des);
+		printf("%c", (char)(least - occur[_i]));
+	)
+
 	printf("\n");
 	return (0);
 }
