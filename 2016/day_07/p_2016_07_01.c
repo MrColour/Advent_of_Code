@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 01:45:43 by home              #+#    #+#             */
-/*   Updated: 2020/09/16 03:26:35 by home             ###   ########.fr       */
+/*   Updated: 2020/10/14 21:45:07 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,24 +88,16 @@ bool	process_string(char *ip)
 
 int		main(void)
 {
-	int		i;
 	char	*str_file;
-	char	*s_tok;
 	int		TLS_count;
 
 	str_file = extract_file("input.txt");
-	s_tok = strtok(str_file, "\n");
 
-	i = 1;
 	TLS_count = 0;
-	while (s_tok != NULL)
-	{
-		if (process_string(s_tok) == true)
+	FOR_EACH_STRTOK(str_file, "\n",
+		if (process_string(_tok) == true)
 			TLS_count++;
-		s_tok = strtok(NULL, "\n");
-		i++;
-	}
-
-	printf("%d\n", TLS_count);
+	)
+	answer(d, TLS_count);
 	return (0);
 }
