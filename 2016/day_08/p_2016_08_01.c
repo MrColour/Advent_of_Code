@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 03:41:41 by home              #+#    #+#             */
-/*   Updated: 2020/09/17 20:02:33 by home             ###   ########.fr       */
+/*   Updated: 2020/10/14 22:37:47 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,18 +98,14 @@ int		main(void)
 		s_tok = strtok(NULL, "\n");
 	}
 
-	int		i;
 	int		lights_on;
 
-	i = 0;
 	lights_on = 0;
-	while (i < 6)
-	{
-		screen[i][50] = '\0';
-		lights_on += count_occur("#", screen[i]);
-		i++;
-	}
-	printf("RESULT: %d\n", lights_on);
+	FOR_EACH(_i < 6,
+		screen[_i][50] = '\0';
+		lights_on += count_occur("#", screen[_i]);
+	)
+	answer(d, lights_on);
 	return (0);
 }
 

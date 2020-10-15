@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 19:58:36 by home              #+#    #+#             */
-/*   Updated: 2020/09/25 23:19:14 by home             ###   ########.fr       */
+/*   Updated: 2020/10/14 22:46:29 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,7 @@ bool	is_open(int fav_no, int x, int y)
 	calc = (x * x) + (3 * x) + (2 * x * y) + y + (y * y);
 	calc += fav_no;
 
-	bits = 0;
-	while (calc != 0)
-	{
-		bits += (calc & 1);
-		calc = calc >> 1;
-	}
+	bits = __builtin_popcount(calc);
 
 	if (bits % 2 == 0)
 		return (true);
@@ -76,7 +71,7 @@ int		main(void)
 	queue = &((t_queue){1, 1, 0, NULL});
 	last = queue;
 	fav_no = atoi(extract_file("input.txt"));
-	while (1 && queue != NULL)
+	while (queue != NULL)
 	{
 		if (queue->x == 31 && queue->y == 39)
 			break ;
@@ -92,6 +87,6 @@ int		main(void)
 		seen[queue->y][queue->x] = 1;
 		queue = queue->next;
 	}
-	printf("RESULT: %d\n", queue->steps);
+	answer(d, queue->steps);
 	return (0);
 }

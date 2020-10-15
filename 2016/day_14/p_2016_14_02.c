@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 20:55:48 by home              #+#    #+#             */
-/*   Updated: 2020/09/29 23:23:16 by home             ###   ########.fr       */
+/*   Updated: 2020/10/15 01:06:48 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 typedef struct	s_hash
 {
 	int				index;
-	int				found;
 	unsigned char	hash_byte[16 * 2 + 1];
 }				t_hash;
 
@@ -69,8 +68,8 @@ void	hash_2016(unsigned char *start)
 {
 	int		i;
 	MD5_CTX				cxt;
-	unsigned char		hash[16 + 1] = { 0 };
-	unsigned char		hash_byte[16 * 2 + 1] = { 0 };
+	unsigned char		hash[16 + 1];
+	unsigned char		hash_byte[16 * 2 + 1];
 
 	i = 0;
 	memcpy(hash_byte, start, 33);
@@ -79,6 +78,7 @@ void	hash_2016(unsigned char *start)
 		MD5_Init(&cxt);
 		MD5_Update(&cxt, hash_byte, 32);
 		MD5_Final(hash, &cxt);
+
 		hash_to_str(hash, hash_byte);
 
 		i++;
@@ -102,7 +102,7 @@ bool	next_1000_check(unsigned char *try, int index, char *salt, t_hash *sliding_
 	type = has_n_kind(try, 3);
 	while (i < index + 1000 && found == false)
 	{
-		if (sliding_window[i % 1000].index == i && sliding_window[i % 1000].found == 1)
+		if (sliding_window[i % 1000].index == i)
 			memcpy(hash_byte, sliding_window[i % 1000].hash_byte, sizeof(hash_byte));
 		else
 		{
@@ -115,7 +115,6 @@ bool	next_1000_check(unsigned char *try, int index, char *salt, t_hash *sliding_
 
 			hash_2016(hash_byte);
 			sliding_window[i % 1000].index = i;
-			sliding_window[i % 1000].found = 1;
 			memcpy(sliding_window[i % 1000].hash_byte, hash_byte, sizeof(hash_byte));
 		}
 
@@ -146,7 +145,7 @@ int		main(void)
 	salt = strdup("qzyelonm");
 	while (key_pad_count < 64)
 	{
-		if (sliding_window[i % 1000].index == 1 && sliding_window[i % 1000].found == 1)
+		if (sliding_window[i % 1000].index == i)
 			memcpy(hash_byte, sliding_window[i % 1000].hash_byte, sizeof(hash_byte));
 		else
 		{
@@ -158,7 +157,6 @@ int		main(void)
 			hash_to_str(hash, hash_byte);
 			hash_2016(hash_byte);
 			sliding_window[i % 1000].index = i;
-			sliding_window[i % 1000].found = 1;
 			memcpy(sliding_window[i % 1000].hash_byte, hash_byte, sizeof(hash_byte));
 		}
 
@@ -169,6 +167,6 @@ int		main(void)
 		}
 		i++;
 	}
-	printf("RESULT: %d\n", i - 1);
+	answer(d, i - 1);
 	return (0);
 }

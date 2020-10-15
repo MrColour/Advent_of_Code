@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 19:58:36 by home              #+#    #+#             */
-/*   Updated: 2020/09/25 23:17:26 by home             ###   ########.fr       */
+/*   Updated: 2020/10/14 22:47:16 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,7 @@ bool	is_open(int fav_no, int x, int y)
 	calc = (x * x) + (3 * x) + (2 * x * y) + y + (y * y);
 	calc += fav_no;
 
-	bits = 0;
-	while (calc != 0)
-	{
-		bits += (calc & 1);
-		calc = calc >> 1;
-	}
+	bits = __builtin_popcount(calc);
 
 	if (bits % 2 == 0)
 		return (true);
@@ -96,6 +91,6 @@ int		main(void)
 		queue = queue->next;
 		unique++;
 	}
-	printf("RESULT: %d\n", unique);
+	answer(d, unique);
 	return (0);
 }
