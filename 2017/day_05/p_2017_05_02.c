@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 01:43:20 by home              #+#    #+#             */
-/*   Updated: 2020/10/01 16:46:00 by home             ###   ########.fr       */
+/*   Updated: 2020/10/16 06:24:12 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,9 @@ int		main(void)
 	len = count_occur("\n", str_file);
 	jumps = calloc(len, sizeof(*jumps));
 
-	len = 0;
-	str_file = strtok(str_file, "\n");
-	while (str_file != NULL)
-	{
-		fetch_int(str_file, &jumps[len]);
-		str_file = strtok(NULL, "\n");
-		len++;
-	}
+	FOR_EACH_STRTOK(str_file, "\n",
+		fetch_int(_tok, &jumps[_i]);
+	)
 
 	int		steps;
 	int		ptr;
@@ -49,6 +44,6 @@ int		main(void)
 		ptr += jump;
 	}
 
-	printf("RESULT: %d\n", steps);
+	answer(d, steps);
 	return (0);
 }

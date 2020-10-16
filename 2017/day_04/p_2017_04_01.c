@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 01:06:41 by home              #+#    #+#             */
-/*   Updated: 2020/10/09 18:30:42 by home             ###   ########.fr       */
+/*   Updated: 2020/10/16 06:18:39 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,14 @@ bool	isValid(char *passphrase)
 	bool	result;
 
 	STR_SPLIT(words, passphrase, NULL, " ", len)
+	psort(words, len, sizeof(*words), str_cmp);
 
 	i = 0;
 	result = true;
-	while (words[i] != NULL)
+	while (words[i + 1] != NULL && result == true)
 	{
-		j = i + 1;
-		while (words[j] != NULL)
-		{
-			if (strcmp(words[i], words[j]) == 0)
-				result = false;
-			j++;
-		}
+		if (strcmp(words[i], words[i + 1]) == 0)
+			result = false;
 		i++;
 	}
 	return (result);
@@ -40,19 +36,16 @@ bool	isValid(char *passphrase)
 
 int		main(void)
 {
-	char	*s_tok;
+	char	*str_file;
 	int		result;
 
-	s_tok = extract_file("input.txt");
+	str_file = extract_file("input.txt");
 
 	result = 0;
-	s_tok = strtok(s_tok, "\n");
-	while (s_tok != NULL)
-	{
-		if (isValid(s_tok) == true)
+	FOR_EACH_STRTOK(str_file, "\n",
+		if (isValid(_tok) == true)
 			result++;
-		s_tok = strtok(NULL, "\n");
-	}
-	printf("RESULT: %d\n", result);
+	)
+	answer(d, result);
 	return (0);
 }
