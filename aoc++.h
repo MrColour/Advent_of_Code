@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 00:21:00 by home              #+#    #+#             */
-/*   Updated: 2020/10/16 05:53:41 by home             ###   ########.fr       */
+/*   Updated: 2020/10/16 07:21:26 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ static inline void	strr(char *str) { int i = 0; int j = strlen(str) - 1; char t;
 
 //Memory utility functions
 
-void	*_memx(size_t left, void *src, size_t s_size, size_t right) {char *res; res = calloc(left + s_size, right); memcpy(&res[left], src, s_size); return (res);}
+void	*_memx(size_t left, void *src, size_t s_size, size_t right) {char *res; res = malloc(left + s_size + right); memcpy(&res[left], src, s_size); return (res);}
 
 #define MEMDUP(src, size) _memx(0, src, size, 0)
 #define MEMSDUP(src, size) _memx(0, src, size * sizeof(*src), 0)

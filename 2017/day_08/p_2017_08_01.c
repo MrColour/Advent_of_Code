@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 20:48:39 by home              #+#    #+#             */
-/*   Updated: 2020/10/10 18:26:15 by home             ###   ########.fr       */
+/*   Updated: 2020/10/17 02:51:46 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,17 +80,9 @@ int		main(void)
 		s_tok = strtok(NULL, "\n");
 	}
 
-	size_t i;
-	int		max;
-	max = INT_MIN;
+	int		*max;
 
-	i = 0;
-	while (i < sizeof(reg) / 4)
-	{
-		max = MAX(max, reg[i]);
-		i++;
-	}
-
-	printf("RESULT: %d\n", max);
+	max = last(reg, sizeof(reg) / 4, sizeof(*reg), int_cmp_asc);
+	answer(d, *max);
 	return (0);
 }

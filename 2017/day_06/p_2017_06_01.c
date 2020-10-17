@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 16:39:45 by home              #+#    #+#             */
-/*   Updated: 2020/10/16 07:19:32 by home             ###   ########.fr       */
+/*   Updated: 2020/10/16 07:31:02 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int		main(void)
 	past_states[0] = mem_banks;
 	while (not_in_past(past_states, cycles, past_states[cycles], size))
 	{
-		new_mem = MEMDUP(past_states[cycles], sizeof(*new_mem) * size);
+		new_mem = MEMSDUP(past_states[cycles], size);
 		next_cycle(new_mem, size);
 		cycles++;
 		past_states[cycles] = new_mem;

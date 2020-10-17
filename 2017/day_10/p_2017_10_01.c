@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 01:39:50 by home              #+#    #+#             */
-/*   Updated: 2020/10/02 02:24:26 by home             ###   ########.fr       */
+/*   Updated: 2020/10/17 02:58:54 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,9 @@ int		main(void)
 	str_file = extract_file("input.txt");
 	str_file = strtok(str_file, ",");
 
-	i = 0;
-	while (i < sizeof(list) / 4)
-	{
-		list[i] = i;
-		i++;
-	}
+	FOR_EACH(_i < (int)(sizeof(list) / 4),
+		list[_i] = _i;
+	)
 
 	int		curr_pos;
 	int		skip;
@@ -74,6 +71,6 @@ int		main(void)
 		skip++;
 	}
 
-	printf("RESULT: %d\n", list[0] * list[1]);
+	answer(d, list[0] * list[1]);
 	return (0);
 }
