@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 00:21:00 by home              #+#    #+#             */
-/*   Updated: 2020/10/16 07:21:26 by home             ###   ########.fr       */
+/*   Updated: 2020/10/19 01:12:02 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static inline char	*extract_file(char *file) {
 static inline int	str_cmp(const void *a, const void *b) {return ( strcmp((*(char **)a) , (*(char **)b) ));}
 static inline int	int_cmp_asc(const void *a, const void *b) {return ((*(int *)a) < (*(int *)b) ? -1 : 1);}
 static inline int	int_cmp_des(const void *a, const void *b) {return ((*(int *)a) > (*(int *)b) ? -1 : 1);}
+static inline int	long_cmp_asc(const void *a, const void *b) {return ((*(long *)a) < (*(long *)b) ? -1 : 1);}
 static inline int	char_cmp_asc(const void *a, const void *b) { return ((*(char *)a > *(char *)b) ? 1 : -1); }
 static inline int	char_cmp_des(const void *a, const void *b) { return ((*(char *)a < *(char *)b) ? 1 : -1); }
 static inline int	uchar_cmp_asc(const void *a, const void *b) { return ((*(unsigned char *)a > *(unsigned char *)b) ? 1 : -1); }
