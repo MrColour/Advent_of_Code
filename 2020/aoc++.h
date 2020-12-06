@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 00:21:00 by home              #+#    #+#             */
-/*   Updated: 2020/10/31 05:04:33 by home             ###   ########.fr       */
+/*   Updated: 2020/12/05 21:39:32 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,9 @@ static inline int	skip_space(char *src, int times) { return (skip_char(src, time
 
 // Rank: • • • • •
 static inline void	strr(char *str) { int i = 0; int j = strlen(str) - 1; char t; while (i < j) { t = str[i]; str[i] = str[j]; str[j] = t; i++; j--;} }
+
+// Rank: • • • • •
+void	to_hash(char *hash, char *str) { int i = 0; while (str[i] != '\0') { hash[str[i]]++; i++; } }
 
 //Memory utility functions
 
