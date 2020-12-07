@@ -45,4 +45,5 @@ for color in mem:
 
 	count += recurse(color)
 
+# Input was changed, took out periods, changed all bags into bag and removed the last newline.
 print(count)

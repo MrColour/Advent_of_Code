@@ -39,4 +39,5 @@ count = recurse("shiny gold")
 
 # print(mem)
 
+# Input was changed, took out periods, changed all bags into bag and removed the last newline.
 print(count)
