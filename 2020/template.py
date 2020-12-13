@@ -15,6 +15,4 @@ for i, item in enumerate(collection):
 	# ptr = re.findall(r'-?\d+', item)
 	# nums = list(map(int, ptr))
 
-
-
 print(count)
