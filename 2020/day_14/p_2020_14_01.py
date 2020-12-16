@@ -41,7 +41,7 @@ for i, item in enumerate(collection):
 
 total = 0
 for add in mem:
-	# print(add)
+	print(add)
 	total += mem[add]
 
 print(total)

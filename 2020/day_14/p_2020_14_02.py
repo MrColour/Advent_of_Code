@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-input = open("input.txt").read().split("mask = ")
+input = open("inp.txt").read().split("mask = ")
 
 collection = input
 
@@ -72,7 +72,7 @@ for i, item in enumerate(collection):
 # print(mem)
 total = 0
 for add in mem:
-	# print(add)
+	print(add)
 	total += mem[add]
 
 print(total)
