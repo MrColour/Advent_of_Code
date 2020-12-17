@@ -28,6 +28,7 @@ for line in input:
 	if (valid == True):
 		valids.append(nums)
 
+# Assume all fields are valid for all rows, remove when proved that this row cannot be this field
 checksum = [[at for at in range(20)] for c in range(20)]
 # print(checksum)
 
