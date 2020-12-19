@@ -25,6 +25,9 @@ def op_query(string):
 		elif (string[i] == ')'):
 			prec -= len(string)
 		else:
+			# Since each precedence level is "+= len(string)", there is no way that the
+			# precedence level of the operators will collide. And '+' will always have one higher
+			# precedence than '*' if they are on the same nested level of '('.
 			if (string[i] == '*'):
 				prec_list += [prec]
 			else:
