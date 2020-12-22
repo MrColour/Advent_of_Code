@@ -1,12 +1,8 @@
-import re
 from collections import defaultdict
 
 input = open("input.txt").read().split("\n")
 
 collection = input
-
-# mem = defaultdict(list)
-
 all_name = defaultdict(list)
 count = 0
 all_i = []
@@ -28,11 +24,9 @@ for i, item in enumerate(collection):
 			all_name[allergen].append(set(ingr.split(' ')))
 
 # print(all_name)
-
 print(all_name['fish'])
 
 ban = []
-
 for allergen in all_name:
 	left_over = set(all_name[allergen][0])
 	# print("Set", left_over)
@@ -45,7 +39,6 @@ for allergen in all_name:
 	ban += left_over
 
 print(ban)
-
 # print(all_i)
 
 count = 0
