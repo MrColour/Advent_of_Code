@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 17:53:28 by home              #+#    #+#             */
-/*   Updated: 2020/10/11 17:55:54 by home             ###   ########.fr       */
+/*   Updated: 2020/11/30 21:37:29 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	make_day(char *s_year, char *s_day)
 	year = atoi(s_year);
 
 	assert(0 < day && day <= 25 && "Day argument is out of bounds. Valid range is [1, 25].");
-	assert(2015 < year && year <= 2019 && "Year argument is out of bounds. Valid range is [2015, 2019]");
+	assert(2015 < year && year <= 2020 && "Year argument is out of bounds. Valid range is [2015, 2019]");
 
 	asprintf(&day_dir, "day_%02d", day);
 	mkdir(day_dir, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);

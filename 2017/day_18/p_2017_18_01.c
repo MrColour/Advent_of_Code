@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 19:37:05 by home              #+#    #+#             */
-/*   Updated: 2020/10/10 22:28:54 by home             ###   ########.fr       */
+/*   Updated: 2020/11/28 22:30:04 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int		main(void)
 	ptr = 0;
 	while (ptr < len - 1)
 	{
-		// printf("STR: %s %lld\n", instr[ptr], reg['a']);
+		printf("STR: %s %lld\n", instr[ptr], reg['a']);
 		ptr += do_op(instr[ptr], reg);
 	}
 	return (0);

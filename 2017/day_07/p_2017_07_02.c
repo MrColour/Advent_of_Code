@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 18:38:17 by home              #+#    #+#             */
-/*   Updated: 2020/10/10 08:27:36 by home             ###   ########.fr       */
+/*   Updated: 2020/11/24 14:09:15 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int		traverse(t_tower_elem *root)
 	{
 		if (root->children[i]->wieght != check)
 		{
+			printf("id: %s\n", root->id);
 			printf("check: %d %d and %d %d\n", check, root->children[0]->own_wieght, root->children[i]->wieght, root->children[i]->own_wieght);
 			if (i == 1)
 				printf("Match: %d\n", root->children[2]->wieght);

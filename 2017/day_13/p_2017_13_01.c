@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 17:51:38 by home              #+#    #+#             */
-/*   Updated: 2020/10/03 18:17:20 by home             ###   ########.fr       */
+/*   Updated: 2020/11/25 21:08:19 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		main(void)
 		s_tok += fetch_int(s_tok, &range);
 		if (second % ((range * 2 - 2)) == 0)
 		{
-		// printf("ADD: %d with %d and %d\n", (second * range), second, range);
+		printf("ADD: %d with %d and %d\n", (second * range), second, range);
 			total_severity += (second * range);
 		}
 		s_tok = strtok(NULL, "\n");
