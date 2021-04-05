@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 00:21:00 by home              #+#    #+#             */
-/*   Updated: 2020/10/31 05:04:33 by home             ###   ########.fr       */
+/*   Updated: 2021/04/05 01:28:56 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,16 @@ static inline void	direction(char *dir_pad, char key,int *x, int *y)
 	else if (dir_pad[DOWN] == key)	(*y)--;
 	else if (dir_pad[LEFT] == key)	(*x)--;
 	else if (dir_pad[RIGHT] == key) (*x)++;
+}
+
+
+//Rank: • • • • •
+// Maps integers to booleans. Serves as a hash map.
+char	*int_map(void) { char *r = calloc(UINT32_MAX / sizeof(char), sizeof(char)); assert(r != NULL); return (r); }
+bool	get_imap(unsigned no, char *imap) { if (imap[no / 8] & (1 << (no % 8))) { return (true); } else { return (false); } }
+void	set_imap(unsigned int no, char *imap, bool val)
+{
+	if (val == true) { imap[no / 8] |= (1 << (no % 8)); } else { imap[no / 8] &= ~(1 << (no % 8)); }
 }
 
 //Rank: * * * • •
